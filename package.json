@@ -1,0 +1,17 @@
+{
+  "devDependencies": {
+    "concurrently": "^9.1.2",
+    "prettier": "3.5.3"
+  },
+  "scripts": {
+    "dev": "concurrently \"npm --prefix backend start\" \"npm --prefix frontend run dev\""
+  },
+  "dependencies": {
+    "@chakra-ui/react": "^3.21.0",
+    "@emotion/react": "^11.14.0",
+    "@emotion/styled": "^11.14.0",
+    "bootstrap": "^5.3.7",
+    "framer-motion": "^12.18.1",
+    "react-bootstrap": "^2.10.10"
+  }
+}

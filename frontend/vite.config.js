@@ -13,4 +13,7 @@ export default defineConfig({
       },
     },
   },
+  optimizeDeps: {
+    include: ['bootstrap/js/dist/toast'],
+  },
 });

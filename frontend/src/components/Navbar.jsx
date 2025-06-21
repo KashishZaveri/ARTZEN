@@ -15,14 +15,17 @@ const Navbar = () => {
         bgColor="blue.600"
         flexShrink={0}
         fontSize={{ base: "md", md: "lg" }}
+        color="black"
       >
         <Text
+          pt={3}
           fontWeight="bold"
           textTransform="uppercase"
           textAlign="center"
           flexShrink={0}
+          color="black"
         >
-          <Link to="/" style={{ display: "inline-block", flexShrink: 0 }}>
+          <Link to="/" style={{ textDecoration: "none", color: "black" }}>
             ArtZen 🕊️
           </Link>
         </Text>
