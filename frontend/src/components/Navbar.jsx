@@ -32,11 +32,11 @@ const Navbar = () => {
 
         <HStack spacing={2} alignItems="center" flexShrink={0}>
           <Link to="/create">
-            <Button px={4} py={2}>
+            <Button px={4} py={2} rounded={"lg"}>
               <FaPlusSquare />
             </Button>
           </Link>
-          <Button px={4} py={2}>
+          <Button px={4} py={2} rounded={"lg"}>
             <FaUserCircle />
           </Button>
         </HStack>

@@ -1,7 +1,7 @@
 import express from "express";
 import mongoose from 'mongoose';
 import {
-  getProduct,
+  getProducts,
   createProduct,
   updateProduct,
   deleteProduct,
@@ -9,7 +9,7 @@ import {
 
 const router = express.Router();
 
-router.get("/", getProduct);
+router.get("/", getProducts);
 
 router.post("/", createProduct);
 

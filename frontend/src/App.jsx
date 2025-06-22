@@ -5,7 +5,6 @@ import HomePage from "./pages/HomePage.jsx";
 import Navbar from "./components/Navbar.jsx";
 import CreatePage from "./pages/CreatePage";
 
-
 function App() {
   return (
     <Box minH={"100vh"}>

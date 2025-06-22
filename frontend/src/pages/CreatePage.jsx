@@ -9,11 +9,11 @@ import {
   Button,
 } from "@chakra-ui/react";
 import { useProductStore } from "../store/product.js";
-import Toast from 'bootstrap/js/dist/toast';
+import Toast from "bootstrap/js/dist/toast";
 
 const CreatePage = () => {
   const toastRef = useRef(null);
-    const [newProduct, setNewProduct] = useState({
+  const [newProduct, setNewProduct] = useState({
     image: "",
     name: "",
     description: "",
@@ -23,21 +23,22 @@ const CreatePage = () => {
   const { createProduct } = useProductStore();
 
   const handleProduct = async () => {
-    const { success, message } = await createProduct(newProduct);
     try {
+      const payload = {
+        ...newProduct,
+        price: Number(newProduct.price),
+      };
+
       const { success, message } = await createProduct(newProduct);
-      console.log("Success:", success);
-      console.log("Message:", message);
 
       if (success && toastRef.current) {
         const toast = new Toast(toastRef.current);
-        toast.show();       
+        toast.show();
       }
     } catch (err) {
       console.error(" Caught in CreatePage:", err.message);
     }
   };
-
 
   return (
     <Container maxW={"container.sm"}>
@@ -89,14 +90,20 @@ const CreatePage = () => {
               border={"1px solid black"}
               placeholder="Price"
               name="price"
-              type="number"
+              type="Number"
               min={0}
               value={newProduct.price}
               onChange={(e) =>
                 setNewProduct({ ...newProduct, price: e.target.value })
               }
             />
-            <Button colorScheme="blue" onClick={handleProduct}>
+            <Button
+              colorScheme="blue"
+              onClick={handleProduct}
+              mt={5}
+              rounded={"lg"}
+              border={"2px solid blue"}
+            >
               Create
             </Button>
           </VStack>
@@ -106,7 +113,7 @@ const CreatePage = () => {
       {/* Bootstrap Toast */}
       <div
         className="toast-container position-fixed bottom-0 end-0 p-3"
-        style={{ zIndex: 9999}}
+        style={{ zIndex: 9999 }}
       >
         <div
           className="toast align-items-center text-white bg-success border-0"
@@ -126,7 +133,6 @@ const CreatePage = () => {
           </div>
         </div>
       </div>
-
     </Container>
   );
 };
