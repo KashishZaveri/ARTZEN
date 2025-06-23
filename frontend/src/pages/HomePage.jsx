@@ -12,7 +12,7 @@ const HomePage = () => {
   }, [fetchProducts]);
 
   return (
-    <Container>
+    <Container mb={10}>
       <VStack>
         <Text fontSize={"2xl"} fontWeight={"bold"} pt={5} textAlign={"center"}>
           Current Art Products

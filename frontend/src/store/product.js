@@ -2,7 +2,10 @@ import { create } from "zustand";
 
 export const useProductStore = create((set) => ({
   products: [],
+  selectedProduct: null,
   setProducts: (products) => set({ products }),
+  setSelectedProduct: (product) => set({ selectedProduct: product }),
+
   createProduct: async (newProduct) => {
     if (
       !newProduct.image ||

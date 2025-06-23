@@ -1,7 +1,8 @@
 import React from "react";
-import { Container, Flex, Text, HStack, Button } from "@chakra-ui/react";
+import { Container, Flex, Text, HStack, Button, Menu, Portal } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
 import { FaPlusSquare, FaUserCircle } from "react-icons/fa";
+
 
 const Navbar = () => {
   return (
@@ -36,9 +37,24 @@ const Navbar = () => {
               <FaPlusSquare />
             </Button>
           </Link>
-          <Button px={4} py={2} rounded={"lg"}>
-            <FaUserCircle />
-          </Button>
+          
+
+          <Menu.Root>
+      <Menu.Trigger asChild>
+        <Button px={4} py={2} rounded={"lg"}>
+          <FaUserCircle />
+        </Button>
+      </Menu.Trigger>
+      <Portal>
+        <Menu.Positioner>
+          <Menu.Content bgColor={"black"} >
+            <Menu.Item value="my-arts" color={"white"}>My Arts</Menu.Item>
+            <Menu.Item value="my-orders" color={"white"}>New Orders</Menu.Item>
+            
+          </Menu.Content>
+        </Menu.Positioner>
+      </Portal>
+    </Menu.Root>
         </HStack>
       </Flex>
     </Container>
