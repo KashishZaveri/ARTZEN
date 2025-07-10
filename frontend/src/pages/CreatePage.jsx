@@ -1,5 +1,6 @@
 import React from "react";
 import { useState, useRef } from "react";
+import { useEffect } from "react";
 import {
   Container,
   VStack,
@@ -10,9 +11,20 @@ import {
 } from "@chakra-ui/react";
 import { useProductStore } from "../store/product.js";
 import Toast from "bootstrap/js/dist/toast";
+import useAuthStore from "../store/useAuth.js"; // Assuming you have a Zustand store for authentication
 
 const CreatePage = () => {
   const toastRef = useRef(null);
+  const token = useAuthStore((state) => state.token);
+  const isAuthenticated = useAuthStore((state) => state.isAuthenticated);
+  const fetchProducts = useProductStore((state) => state.fetchProducts);
+
+  useEffect(() => {
+    if (isAuthenticated && token) {
+      fetchProducts();
+    }
+  }, [token, isAuthenticated]);
+
   const [newProduct, setNewProduct] = useState({
     image: "",
     name: "",
@@ -21,7 +33,6 @@ const CreatePage = () => {
   });
 
   const { createProduct } = useProductStore();
-
   const handleProduct = async () => {
     try {
       const payload = {
@@ -29,12 +40,17 @@ const CreatePage = () => {
         price: Number(newProduct.price),
       };
 
-      const { success, message } = await createProduct(newProduct);
+      const { success, message } = await createProduct(payload);
 
       if (success && toastRef.current) {
         const toast = new Toast(toastRef.current);
         toast.show();
       }
+      // 🟢 REFRESH product list
+      await fetchProducts();
+
+      // Optional: clear input fields
+      setNewProduct({ image: "", name: "", description: "", price: "" });
     } catch (err) {
       console.error(" Caught in CreatePage:", err.message);
     }
@@ -51,7 +67,7 @@ const CreatePage = () => {
           fontWeight="bold"
           pt={10}
         >
-          Create New Product
+          ✨ Create New Product ✨
         </Heading>
 
         <Box w={"full"} p={6} bgColor={"blue.100"} rounded={"lg"} shadow={"md"}>
@@ -79,8 +95,6 @@ const CreatePage = () => {
               border={"1px solid black"}
               placeholder="Description"
               name="description"
-              row={5}
-              column={9}
               value={newProduct.description}
               onChange={(e) =>
                 setNewProduct({ ...newProduct, description: e.target.value })
@@ -90,7 +104,7 @@ const CreatePage = () => {
               border={"1px solid black"}
               placeholder="Price"
               name="price"
-              type="Number"
+              type="number"
               min={0}
               value={newProduct.price}
               onChange={(e) =>
@@ -98,7 +112,6 @@ const CreatePage = () => {
               }
             />
             <Button
-              colorScheme="blue"
               onClick={handleProduct}
               mt={5}
               rounded={"lg"}

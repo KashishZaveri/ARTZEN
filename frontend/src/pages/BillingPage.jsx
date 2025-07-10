@@ -24,6 +24,7 @@ const BillingPage = () => {
     zip: "",
     country: "",
     item: "",
+    quantity: "",
     totalAmount: "",
   });
 
@@ -34,11 +35,10 @@ const BillingPage = () => {
           as={"h1"}
           size={"2xl"}
           textAlign={"center"}
-          mb={8}
+          my={4}
           fontWeight="bold"
-          pt={10}
         >
-          Billing
+          ✨ Billing ✨
         </Heading>
 
         <Box
@@ -54,7 +54,7 @@ const BillingPage = () => {
               name="name"
               placeholder="Art Product Name"
               value={selectedProduct?.name || ""}
-              isReadOnly
+              readOnly
               bg="gray.100"
               cursor="not-allowed"
               border="1px solid black"

@@ -1,32 +1,44 @@
-import express from "express";
 import mongoose from "mongoose";
 import Product from "../models/productModel.js";
 
+/**
+ * @desc    Get all products
+ * @route   GET /api/products
+ * @access  Public or Private (based on your frontend usage)
+ */
 export const getProducts = async (req, res) => {
   try {
     const products = await Product.find({});
     res.status(200).json({ success: true, data: products });
   } catch (error) {
-    console.log("error in fetching products:", error.message);
+    console.error("Error fetching products:", error.message);
     res.status(500).json({ success: false, message: "Server Error" });
   }
 };
 
+/**
+ * @desc    Create a new product
+ * @route   POST /api/products
+ * @access  Private
+ */
 export const createProduct = async (req, res) => {
-  const product = req.body;
+  const { name, description, price, image } = req.body;
+
   try {
-    if (
-      !product.image ||
-      !product.name ||
-      !product.description ||
-      !product.price
-    ) {
-      return res
-        .status(400)
-        .json({ success: false, message: "All fields are required" });
+    if (!name || !description || !price || !image) {
+      return res.status(400).json({
+        success: false,
+        message: "All fields are required",
+      });
     }
 
-    const newProduct = new Product(product);
+    const newProduct = new Product({
+      name,
+      description,
+      price,
+      image,
+      user: req.user.id, // ensure req.user is populated from auth middleware
+    });
 
     await newProduct.save();
     res.status(201).json({ success: true, data: newProduct });
@@ -36,28 +48,11 @@ export const createProduct = async (req, res) => {
   }
 };
 
-export const updateProduct = async (req, res) => {
-  const productId = req.params.id;
-  const updatedData = req.body;
-
-  try {
-    const updatedProduct = await Product.findByIdAndUpdate(
-      productId,
-      updatedData,
-      { new: true }
-    );
-    if (!updatedProduct) {
-      return res
-        .status(404)
-        .json({ success: false, message: "Product not found" });
-    }
-    res.json({ success: true, product: updatedProduct });
-  } catch (error) {
-    console.error("Error updating product:", error.message);
-    res.status(500).json({ success: false, message: "Server error" });
-  }
-};
-
+/**
+ * @desc    Delete a product by ID
+ * @route   DELETE /api/products/:id
+ * @access  Private (Owner only)
+ */
 export const deleteProduct = async (req, res) => {
   const productId = req.params.id;
 
@@ -68,12 +63,25 @@ export const deleteProduct = async (req, res) => {
   }
 
   try {
-    const product = await Product.findByIdAndDelete(productId);
+    const product = await Product.findById(productId);
+
     if (!product) {
       return res
         .status(404)
         .json({ success: false, message: "Product not found" });
     }
+
+    // Ownership check
+    if (product.user.toString() !== req.user.id) {
+      return res
+        .status(403)
+        .json({
+          success: false,
+          message: "Not authorized to delete this product",
+        });
+    }
+
+    await product.deleteOne();
     res
       .status(200)
       .json({ success: true, message: "Product deleted successfully" });
@@ -82,4 +90,3 @@ export const deleteProduct = async (req, res) => {
     res.status(500).json({ success: false, message: "Server error" });
   }
 };
-

@@ -48,5 +48,5 @@ const billSchema = new mongoose.Schema({
 }, {
     timestamps: true,   //createdAt, updatedAt
 });
-const Bill = mongoose.model("Bill", productSchema);
+const Bill = mongoose.model("Bill", billSchema);
 export default Bill;

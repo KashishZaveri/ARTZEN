@@ -11,6 +11,7 @@ import {
   Text,
   Button,
 } from "@chakra-ui/react";
+import { Link } from "react-router-dom";
 
 import { useProductStore } from "../store/product.js"; // assuming Zustand setup
 
@@ -18,22 +19,24 @@ const PaymentPage = () => {
   const location = useLocation();
   const selectedProduct = useProductStore((state) => state.selectedProduct);
   return (
-    <Container maxW="container.sm" centerContent py={12}>
+    <Container maxW={"container.sm"} centerContent py={12}>
       <Box
         w={"100"}
-        p={8}
+        py={4}
+        px={8}
         borderRadius="md"
         bgColor={"blue.100"}
         boxShadow="xl"
         textAlign="center"
         fontSize={{ base: "md", md: "lg" }}
+        flexShrink={0}
       >
-        <Heading as={"h4"} mb={6} flexShrink={0}>
+        <Heading as={"h4"} mb={6} flexShrink={0} pt={3}>
           Choose Your Payment Method
         </Heading>
 
         {/* Payment Method Logos */}
-        <HStack justify="center" gap={5} mb={6}>
+        <HStack  gap={5} mb={6} centerContent pl={7}>
           <Image
             src="https://tse2.mm.bing.net/th?id=OIP.iKTYyFCcopiFDDRNklegXQHaEK&pid=Api&P=0&h=180"
             alt={"Visa"}
@@ -65,42 +68,59 @@ const PaymentPage = () => {
 
         {/* Payment Method Dropdown */}
         <VStack spacing={4} mb={6} textAlign="center">
-          <Text
-            value="card"
-            w={"80"}
-            border={"1px solid black"}
-            borderRadius="md"
+          <Link
+            to={"/payment/card"}
+            style={{ textDecoration: "none", color: "black" }}
           >
-            Credit / Debit Card
-          </Text>
-          <Text
-            value="upi"
-            w={"80"}
-            border={"1px solid black"}
-            borderRadius="md"
+            <Text
+              value="card"
+              w={"80"}
+              border={"1px solid black"}
+              borderRadius="md"
+            >
+              Credit / Debit Card
+            </Text>
+          </Link>
+          <Link
+            to={"/payment/upi"}
+            style={{ textDecoration: "none", color: "black" }}
           >
-            UPI
-          </Text>
-          <Text
-            value="cod"
-            w={"80"}
-            border={"1px solid black"}
-            borderRadius="md"
+            <Text
+              value="upi"
+              w={"80"}
+              border={"1px solid black"}
+              borderRadius="md"
+            >
+              UPI
+            </Text>
+          </Link>
+          <Link
+            to={"/payment/cod"}
+            style={{ textDecoration: "none", color: "black" }}
           >
-            Cash on Delivery
-          </Text>
+            <Text
+              value="cod"
+              w={"80"}
+              border={"1px solid black"}
+              borderRadius="md"
+            >
+              Cash on Delivery
+            </Text>
+          </Link>
         </VStack>
 
+        {/* Order Summary */}
+        <Box textAlign="left" mb={6}>
+          <Text>
+            <strong>Item:</strong> {selectedProduct?.name}
+          </Text>
+          <Text>
+            <strong>Amount:</strong> ₹{selectedProduct?.price}
+          </Text>
+        </Box>
+
         {/* Pay Button */}
-        <Button
-          mt={5}
-          w={"80"}
-          rounded={"lg"}
-          border={"2px solid blue"}
-          //   onClick={handlePayment}
-        >
-          Pay  ₹{selectedProduct?.price}
-        </Button>
+        
       </Box>
     </Container>
   );

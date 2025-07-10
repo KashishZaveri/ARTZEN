@@ -3,8 +3,14 @@ import { Card, Image, Text, Button, AspectRatio } from "@chakra-ui/react";
 
 import { Link, useLocation } from "react-router-dom";
 import { useProductStore } from "../store/product.js";
+import useAuthStore from "../store/useAuth.js"; // Assuming you have a Zustand store for authentication
 
 const ProductCard = ({ product }) => {
+  const { isAuthenticated, user, signout } = useAuthStore();
+  
+  
+  const location = useLocation();
+
   const setSelectedProduct = useProductStore(
     (state) => state.setSelectedProduct
   );
@@ -31,12 +37,19 @@ const ProductCard = ({ product }) => {
         </Text>
       </Card.Body>
       <Card.Footer gap="2">
-        <Link to="/billing" onClick={() => setSelectedProduct(product)}>
-          <Button variant="solid" rounded={"lg"} border={"2px solid blue"}>
-            Buy now
-          </Button>
-        </Link>
-        {/* <Button variant="ghost">Add to cart</Button> */}
+        {isAuthenticated ? (
+          <Link to="/billing" onClick={() => setSelectedProduct(product)}>
+            <Button variant="solid" rounded={"lg"} border={"2px solid blue"}>
+              Buy now
+            </Button>
+          </Link>
+        ) : (
+          <Link to="/signin" state={{ from: location }}>
+            <Button variant="solid" rounded={"lg"} border={"2px solid blue"}>
+              Buy now
+            </Button>
+          </Link>
+        )}
       </Card.Footer>
     </Card.Root>
   );

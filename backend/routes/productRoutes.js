@@ -1,21 +1,17 @@
 import express from "express";
-import mongoose from 'mongoose';
 import {
   getProducts,
   createProduct,
-  updateProduct,
   deleteProduct,
 } from "../controllers/productController.js";
+import { protect } from "../Middleware/protect.js";
 
 const router = express.Router();
 
 router.get("/", getProducts);
 
-router.post("/", createProduct);
+router.post("/", protect, createProduct);
 
-router.put("/:id", updateProduct);
-
-router.delete("/:id", deleteProduct);
-
+router.delete("/:id", protect, deleteProduct);
 
 export default router;
