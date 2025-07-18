@@ -7,8 +7,7 @@ import useAuthStore from "../store/useAuth.js"; // Assuming you have a Zustand s
 
 const ProductCard = ({ product }) => {
   const { isAuthenticated, user, signout } = useAuthStore();
-  
-  
+
   const location = useLocation();
 
   const setSelectedProduct = useProductStore(
@@ -38,7 +37,7 @@ const ProductCard = ({ product }) => {
       </Card.Body>
       <Card.Footer gap="2">
         {isAuthenticated ? (
-          <Link to="/billing" onClick={() => setSelectedProduct(product)}>
+          <Link to="/payment" onClick={() => setSelectedProduct(product)}>
             <Button variant="solid" rounded={"lg"} border={"2px solid blue"}>
               Buy now
             </Button>

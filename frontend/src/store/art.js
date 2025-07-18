@@ -14,7 +14,9 @@ const useArtStore = create((set) => ({
       const token = localStorage.getItem("token");
       const res = await fetch("/api/products/my-arts", {
         method: "GET",
-        headers: { Authorization: `Bearer ${token}` },
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
       });
 
       const data = await res.json();

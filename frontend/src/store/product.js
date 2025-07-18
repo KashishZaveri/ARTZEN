@@ -52,12 +52,15 @@ export const useProductStore = create((set, get) => ({
   },
   // Fetch all products
   fetchProducts: async () => {
+    const token = localStorage.getItem("token"); // or get it from an auth store
+
     try {
       set({ loading: true });
 
       const res = await fetch("/api/products", {
         headers: {
           "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`, // ✅ Include the token here
         },
       });
 

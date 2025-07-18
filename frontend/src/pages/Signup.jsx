@@ -1,7 +1,14 @@
 import React from "react";
 import { useState } from "react";
-import { Box, Button, Heading, Input, Stack, Text } from "@chakra-ui/react";
-
+import {
+  Box,
+  Button,
+  Checkbox,
+  Heading,
+  Input,
+  Stack,
+  Text,
+} from "@chakra-ui/react";
 import { Link, Navigate } from "react-router-dom";
 import useAuthStore from "../store/useAuth.js";
 
@@ -10,6 +17,8 @@ const Signup = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
+  const [showPassword, setShowPassword] = useState(false);
+  const handleTogglePassword = () => setShowPassword(!showPassword);
   const signup = useAuthStore((state) => state.signup);
 
   const emailValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
@@ -71,7 +80,7 @@ const Signup = () => {
 
         <Input
           placeholder="Password"
-          type="password"
+          type={showPassword ? "text" : "password"} // ✅ Toggle visibility
           minLength={8}
           value={password}
           onChange={(e) => setPassword(e.target.value)}
@@ -83,6 +92,12 @@ const Signup = () => {
             number
           </Text>
         )}
+
+        <Checkbox.Root onChange={() => setShowPassword(!showPassword)}>
+          <Checkbox.HiddenInput />
+          <Checkbox.Control border="2px solid blue" />
+          <Checkbox.Label> Show Password</Checkbox.Label>
+        </Checkbox.Root>
 
         <Button
           onClick={handleSignup}

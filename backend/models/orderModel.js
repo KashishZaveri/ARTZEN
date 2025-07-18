@@ -1,30 +1,46 @@
-import { mongoose } from "mongoose";
+import mongoose from "mongoose";
 
 const orderSchema = new mongoose.Schema({
-  user: {
+  userId: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "User",
     required: true,
   },
   items: [
     {
-      art: {
+      productId: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: "Art",
+        ref: "Product",
       },
-      quantity: { type: Number, default: 1 },
+      name: String,
+      price: Number,
+      image: String,
     },
   ],
+  address: {
+    street: String,
+    city: String,
+    state: String,
+    zip: String,
+    phone: String,
+  },
   totalAmount: {
     type: Number,
     required: true,
   },
-  paymentStatus: {
+  paymentId: {
     type: String,
     required: true,
-    enum: ["Paid", "Failed", "Pending"], // Add more statuses as needed
-  }, // e.g., "Paid", "Failed", "Pending"
-  createdAt: {
+  },
+  status: {
+    type: String,
+    default: "Confirmed",
+  },
+  paymentStatus: {
+    type: String,
+    default: "Paid",
+  },
+  orderedAt: {
     type: Date,
     default: Date.now,
   },

@@ -1,9 +1,14 @@
 import { create } from "zustand";
 
 const useAuthStore = create((set) => ({
-  user: null,
+  user: JSON.parse(localStorage.getItem("user")) || null,
   token: localStorage.getItem("token") || null,
   isAuthenticated: !!localStorage.getItem("token"),
+
+  setUser: (userData) => {
+    set({ user: userData });
+    localStorage.setItem("user", JSON.stringify(userData));
+  },
 
   setToken: (token) => {
     if (token) {
@@ -11,7 +16,8 @@ const useAuthStore = create((set) => ({
       set({ token, isAuthenticated: true });
     } else {
       localStorage.removeItem("token");
-      set({ token: null, isAuthenticated: false });
+      localStorage.removeItem("user");
+      set({ token: null, user: null, isAuthenticated: false });
     }
   },
 
@@ -22,13 +28,12 @@ const useAuthStore = create((set) => ({
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ name, email, password }),
       });
-
       const data = await res.json();
-
       if (!res.ok) throw new Error(data.message || "Signup failed");
 
-      set({ user: data.user });
-      useAuthStore.getState().setToken(data.token);
+      localStorage.setItem("token", data.token);
+      localStorage.setItem("user", JSON.stringify(data.user));
+      set({ token: data.token, user: data.user, isAuthenticated: true });
 
       return { success: true };
     } catch (err) {
@@ -45,13 +50,12 @@ const useAuthStore = create((set) => ({
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, password }),
       });
-
       const data = await res.json();
-
       if (!res.ok) throw new Error(data.message || "Signin failed");
 
-      set({ user: data.user });
-      useAuthStore.getState().setToken(data.token);
+      localStorage.setItem("token", data.token);
+      localStorage.setItem("user", JSON.stringify(data.user));
+      set({ token: data.token, user: data.user, isAuthenticated: true });
 
       return { success: true };
     } catch (err) {
@@ -63,11 +67,18 @@ const useAuthStore = create((set) => ({
 
   signout: () => {
     localStorage.removeItem("token");
+    localStorage.removeItem("user");
     set({ user: null, token: null, isAuthenticated: false });
   },
 
-  getToken: () => {
-    return useAuthStore.getState().token;
+  getToken: () => useAuthStore.getState().token,
+
+  getUserInfo: () => {
+    const { user } = useAuthStore.getState();
+    return {
+      name: user?.name || "Guest",
+      email: user?.email || "guest@example.com",
+    };
   },
 }));
 

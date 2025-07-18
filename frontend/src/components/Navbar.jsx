@@ -79,7 +79,7 @@ const Navbar = () => {
                         style={{ textDecoration: "none" }}
                       >
                         <Menu.Item value="my-orders" color={"white"}>
-                          New Orders
+                          My Orders
                         </Menu.Item>
                       </Link>
                       <Menu.Item

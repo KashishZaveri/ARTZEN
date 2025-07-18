@@ -20,14 +20,15 @@ const EditPage = () => {
   const { editingArt, editArt, updateField, updateArt, fetchMyArts, updating } =
     useArtStore();
 
-  // 🔁 Fetch artwork on mount
   useEffect(() => {
     if (artId) editArt(artId);
   }, [artId]);
 
   if (!editingArt) return <Spinner size="xl" mt={10} />;
 
-  const handleUpdate = async () => {
+  const handleSubmit = async (e) => {
+    e.preventDefault(); // prevent page reload
+
     const updatedArt = {
       image: editingArt.image,
       name: editingArt.name,
@@ -38,7 +39,6 @@ const EditPage = () => {
     await updateArt(editingArt._id, updatedArt);
     await fetchMyArts();
 
-    // Show toast first
     if (toastRef.current) {
       const toast = new Toast(toastRef.current);
       toast.show();
@@ -55,47 +55,56 @@ const EditPage = () => {
         </Heading>
 
         <Box w="full" p={6} bgColor="blue.100" rounded="lg" shadow="md">
-          <VStack spacing={4}>
-            <Input
-              placeholder="Image URL"
-              border="1px solid black"
-              value={editingArt.image}
-              onChange={(e) => updateField("image", e.target.value)}
-            />
-            <Input
-              placeholder="Art Name"
-              border="1px solid black"
-              value={editingArt.name}
-              onChange={(e) => updateField("name", e.target.value)}
-            />
-            <Input
-              placeholder="Description"
-              border="1px solid black"
-              value={editingArt.description}
-              onChange={(e) => updateField("description", e.target.value)}
-            />
-            <Input
-              placeholder="Price"
-              type="number"
-              border="1px solid black"
-              min={0}
-              value={editingArt.price}
-              onChange={(e) => updateField("price", parseFloat(e.target.value))}
-            />
-            <Button
-              onClick={handleUpdate}
-              mt={3}
-              border="2px solid blue"
-              isLoading={updating}
-              rounded="lg"
-            >
-              Update
-            </Button>
-          </VStack>
+          <form onSubmit={handleSubmit}>
+            <VStack spacing={4}>
+              <Input
+                placeholder="Image URL"
+                border="1px solid black"
+                value={editingArt.image}
+                onChange={(e) => updateField("image", e.target.value)}
+                required
+              />
+              <Input
+                placeholder="Art Name"
+                border="1px solid black"
+                value={editingArt.name}
+                onChange={(e) => updateField("name", e.target.value)}
+                required
+              />
+              <Input
+                placeholder="Description"
+                border="1px solid black"
+                value={editingArt.description}
+                onChange={(e) => updateField("description", e.target.value)}
+                required
+              />
+              <Input
+                placeholder="Price"
+                type="number"
+                border="1px solid black"
+                min={0}
+                value={editingArt.price}
+                onChange={(e) =>
+                  updateField("price", parseFloat(e.target.value))
+                }
+                required
+              />
+              <Button
+                type="submit"
+                mt={3}
+                border="2px solid blue"
+                isLoading={updating}
+                rounded="lg"
+                colorScheme="blue"
+              >
+                Update
+              </Button>
+            </VStack>
+          </form>
         </Box>
       </VStack>
 
-      {/* Bootstrap Toast for success */}
+      {/* ✅ Bootstrap Toast */}
       <div
         className="toast-container position-fixed bottom-0 end-0 p-3"
         style={{ zIndex: 9999 }}
@@ -111,7 +120,7 @@ const EditPage = () => {
               type="button"
               className="btn-close btn-close-white me-2 m-auto"
               data-bs-dismiss="toast"
-            />
+            ></button>
           </div>
         </div>
       </div>

@@ -1,6 +1,4 @@
-import React from "react";
-import { useState, useRef } from "react";
-import { useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import {
   Container,
   VStack,
@@ -11,19 +9,14 @@ import {
 } from "@chakra-ui/react";
 import { useProductStore } from "../store/product.js";
 import Toast from "bootstrap/js/dist/toast";
-import useAuthStore from "../store/useAuth.js"; // Assuming you have a Zustand store for authentication
+import useAuthStore from "../store/useAuth.js";
 
 const CreatePage = () => {
   const toastRef = useRef(null);
   const token = useAuthStore((state) => state.token);
   const isAuthenticated = useAuthStore((state) => state.isAuthenticated);
   const fetchProducts = useProductStore((state) => state.fetchProducts);
-
-  useEffect(() => {
-    if (isAuthenticated && token) {
-      fetchProducts();
-    }
-  }, [token, isAuthenticated]);
+  const { createProduct } = useProductStore();
 
   const [newProduct, setNewProduct] = useState({
     image: "",
@@ -32,8 +25,15 @@ const CreatePage = () => {
     price: "",
   });
 
-  const { createProduct } = useProductStore();
-  const handleProduct = async () => {
+  useEffect(() => {
+    if (isAuthenticated && token) {
+      fetchProducts();
+    }
+  }, [token, isAuthenticated]);
+
+  const handleProduct = async (e) => {
+    e.preventDefault(); // prevents page reload
+
     try {
       const payload = {
         ...newProduct,
@@ -46,23 +46,22 @@ const CreatePage = () => {
         const toast = new Toast(toastRef.current);
         toast.show();
       }
-      // 🟢 REFRESH product list
+
       await fetchProducts();
 
-      // Optional: clear input fields
       setNewProduct({ image: "", name: "", description: "", price: "" });
     } catch (err) {
-      console.error(" Caught in CreatePage:", err.message);
+      console.error("Caught in CreatePage:", err.message);
     }
   };
 
   return (
-    <Container maxW={"container.sm"}>
+    <Container maxW="container.sm">
       <VStack spacing={8}>
         <Heading
-          as={"h1"}
-          size={"2xl"}
-          textAlign={"center"}
+          as="h1"
+          size="2xl"
+          textAlign="center"
           mb={8}
           fontWeight="bold"
           pt={10}
@@ -70,56 +69,67 @@ const CreatePage = () => {
           ✨ Create New Product ✨
         </Heading>
 
-        <Box w={"full"} p={6} bgColor={"blue.100"} rounded={"lg"} shadow={"md"}>
-          <VStack spacing={4}>
-            <Input
-              border={"1px solid black"}
-              placeholder="Image URL"
-              name="image"
-              value={newProduct.image}
-              onChange={(e) =>
-                setNewProduct({ ...newProduct, image: e.target.value })
-              }
-            />
+        <Box w="full" p={6} bgColor="blue.100" rounded="lg" shadow="md">
+          {/* ✅ Form wrapper added here */}
+          <form onSubmit={handleProduct}>
+            <VStack spacing={4}>
+              <Input
+                border="1px solid black"
+                placeholder="Image URL"
+                name="image"
+                value={newProduct.image}
+                onChange={(e) =>
+                  setNewProduct({ ...newProduct, image: e.target.value })
+                }
+                required
+              />
 
-            <Input
-              border={"1px solid black"}
-              placeholder="Art Name"
-              name="name"
-              value={newProduct.name}
-              onChange={(e) =>
-                setNewProduct({ ...newProduct, name: e.target.value })
-              }
-            />
-            <Input
-              border={"1px solid black"}
-              placeholder="Description"
-              name="description"
-              value={newProduct.description}
-              onChange={(e) =>
-                setNewProduct({ ...newProduct, description: e.target.value })
-              }
-            />
-            <Input
-              border={"1px solid black"}
-              placeholder="Price"
-              name="price"
-              type="number"
-              min={0}
-              value={newProduct.price}
-              onChange={(e) =>
-                setNewProduct({ ...newProduct, price: e.target.value })
-              }
-            />
-            <Button
-              onClick={handleProduct}
-              mt={5}
-              rounded={"lg"}
-              border={"2px solid blue"}
-            >
-              Create
-            </Button>
-          </VStack>
+              <Input
+                border="1px solid black"
+                placeholder="Art Name"
+                name="name"
+                value={newProduct.name}
+                onChange={(e) =>
+                  setNewProduct({ ...newProduct, name: e.target.value })
+                }
+                required
+              />
+
+              <Input
+                border="1px solid black"
+                placeholder="Description"
+                name="description"
+                value={newProduct.description}
+                onChange={(e) =>
+                  setNewProduct({ ...newProduct, description: e.target.value })
+                }
+                required
+              />
+
+              <Input
+                border="1px solid black"
+                placeholder="Price"
+                name="price"
+                type="number"
+                min={0}
+                value={newProduct.price}
+                onChange={(e) =>
+                  setNewProduct({ ...newProduct, price: e.target.value })
+                }
+                required
+              />
+
+              <Button
+                type="submit"
+                mt={5}
+                rounded="lg"
+                border="2px solid blue"
+                colorScheme="blue"
+              >
+                Create
+              </Button>
+            </VStack>
+          </form>
         </Box>
       </VStack>
 

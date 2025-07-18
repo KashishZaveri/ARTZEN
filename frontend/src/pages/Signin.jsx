@@ -1,21 +1,29 @@
 import React from "react";
-import { Box, Button, Heading, Input, Stack, Text } from "@chakra-ui/react";
-import {Link, Navigate, useLocation } from "react-router-dom";
+
+import {
+  Box,
+  Button,
+  Checkbox,
+  Heading,
+  Input,
+  Stack,
+  Text,
+} from "@chakra-ui/react";
+import { Link, Navigate, useLocation } from "react-router-dom";
 import { useState } from "react";
 import useAuthStore from "../store/useAuth.js";
 
-
 const Signin = () => {
   const location = useLocation();
-    const [redirect, setRedirect] = useState(false);
-    const from = location.state?.from || "/";
+  const [redirect, setRedirect] = useState(false);
+  const [password, setPassword] = useState("");
 
+  const [showPassword, setShowPassword] = useState(false);
+  const handleTogglePassword = () => setShowPassword(!showPassword);
+  const from = location.state?.from || "/";
 
   const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
   const signin = useAuthStore((state) => state.signin);
-
-
 
   const emailValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
   const passwordValid = password.length >= 8;
@@ -39,7 +47,6 @@ const Signin = () => {
   }
   // Redirect to home page if redirect state is true
 
-
   if (redirect) {
     return <Navigate to="/" replace />;
   }
@@ -55,12 +62,10 @@ const Signin = () => {
       boxShadow="md"
       bgColor={"blue.100"}
     >
-      <Heading mb={6} textAlign="center" >
+      <Heading mb={6} textAlign="center">
         Sign In
       </Heading>
       <Stack spacing={3}>
-
-        
         <Input
           placeholder="Email"
           type="email"
@@ -76,12 +81,11 @@ const Signin = () => {
 
         <Input
           placeholder="Password"
-          type="password"
+          type={showPassword ? "text" : "password"} // ✅ Toggle visibility
           minLength={8}
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           border={"1px solid black"}
-
         />
         {password && !passwordValid && (
           <Text fontSize="xs" color="red.500" mt={-2} ms={1}>
@@ -89,7 +93,11 @@ const Signin = () => {
           </Text>
         )}
 
-
+        <Checkbox.Root onChange={() => setShowPassword(!showPassword)}>
+          <Checkbox.HiddenInput />
+          <Checkbox.Control border="2px solid blue" />
+          <Checkbox.Label> Show Password</Checkbox.Label>
+        </Checkbox.Root>
 
         <Button
           onClick={handleSignin}
