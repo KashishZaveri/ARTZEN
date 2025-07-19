@@ -4,6 +4,7 @@
     "prettier": "3.5.3"
   },
   "scripts": {
+    "start": "concurrently \"npm --prefix backend start\" \"npm --prefix frontend run build\"",
     "dev": "concurrently \"npm --prefix backend start\" \"npm --prefix frontend run dev\""
   },
   "dependencies": {
