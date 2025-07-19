@@ -2,7 +2,6 @@
 import { createOrder, sendBillEmail } from "./payment.js"; // ✅ Import payment API functions
 import useAuthStore from "./useAuth.js";
 import { useOrderStore } from "./order.js"; // ✅ Zustand store for orders
-import dotenv from "dotenv";
 
 export async function handlePayment(amount, selectedProduct, billingForm) {
   try {
