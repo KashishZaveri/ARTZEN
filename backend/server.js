@@ -32,7 +32,7 @@ app.use(cors({
 app.use(express.json()); // allows us to accept JSON data in the req.body
 app.use("/api/products", productRoutes);
 app.use("/api/users", userRoutes);
-app.use("/api/products", artRoutes);
+app.use("/api/arts", artRoutes);
 app.use("/api/payment", paymentRoutes);
 app.use("/api/orders", orderRoutes); // Protect the order routes
 
