@@ -5,7 +5,7 @@ export async function createOrder(amount) {
   try {
     const { token } = useAuthStore.getState();
 
-    const response = await fetch(`/api/payment/create-order`, {
+    const response = await fetch(`${import.meta.env.VITE_API_URL}/api/payment/create-order`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -24,7 +24,7 @@ export async function createOrder(amount) {
 
 export async function sendBillEmail(details) {
   try {
-    const response = await fetch("/api/payment/send-bill-email", {
+    const response = await fetch(`${import.meta.env.VITE_API_URL}/api/payment/send-bill-email`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(details),
