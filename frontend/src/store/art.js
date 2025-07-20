@@ -12,7 +12,7 @@ const useArtStore = create((set) => ({
     set({ loading: true, error: null });
     try {
       const token = localStorage.getItem("token");
-      const res = await fetch("/api/products/my-arts", {
+      const res = await fetch(`/api/arts/my-arts`, {
         method: "GET",
         headers: {
           Authorization: `Bearer ${token}`,
@@ -35,7 +35,7 @@ const useArtStore = create((set) => ({
   deleteArt: async (id) => {
     try {
       const token = localStorage.getItem("token");
-      const res = await fetch(`/api/products/my-arts/${id}`, {
+      const res = await fetch(`/api/arts/my-arts/${id}`, {
         method: "DELETE",
         headers: { Authorization: `Bearer ${token}` },
       });
