@@ -34,7 +34,7 @@ export const useProductStore = create((set, get) => ({
 
     const token = localStorage.getItem("token"); // or get it from an auth store
 
-    const res = await fetch(`${import.meta.env.VITE_API_URL}/api/products`, {
+    const res = await fetch(`/api/products`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

@@ -58,7 +58,7 @@ const useArtStore = create((set) => ({
     set({ updating: true });
     try {
       const token = localStorage.getItem("token");
-      const res = await fetch(`${import.meta.env.VITE_API_URL}/api/products/my-arts/${id}`, {
+      const res = await fetch(`/api/products/my-arts/${id}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
