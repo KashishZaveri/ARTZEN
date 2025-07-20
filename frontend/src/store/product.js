@@ -8,8 +8,6 @@ export const useProductStore = create((set, get) => ({
   selectedProduct: null,
   loading: false,
 
-  VITE_API_URL=https://artzen-backend.onrender.com,
-
   // Basic getters
   getProducts: () => get().products,
   getMyArts: () => get().myArts,
