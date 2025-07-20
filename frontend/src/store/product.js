@@ -8,6 +8,8 @@ export const useProductStore = create((set, get) => ({
   selectedProduct: null,
   loading: false,
 
+  VITE_API_URL=https://artzen-backend.onrender.com,
+
   // Basic getters
   getProducts: () => get().products,
   getMyArts: () => get().myArts,
@@ -34,7 +36,7 @@ export const useProductStore = create((set, get) => ({
 
     const token = localStorage.getItem("token"); // or get it from an auth store
 
-    const res = await fetch("/api/products", {
+    const res = await fetch(`${import.meta.env.VITE_API_URL}/api/products`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
