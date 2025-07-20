@@ -9,7 +9,7 @@ import { protect } from "../Middleware/protect.js";
 
 const router = express.Router();
 
-// 🔒 Apply protect middleware to all routes that require authentication
+// Apply protect middleware to all routes that require authentication
 router.get("/my-arts", protect, getMyArts);
 router.get("/my-arts/:id", protect, getSingleArt);
 router.put("/my-arts/:id", protect, updateMyArt);

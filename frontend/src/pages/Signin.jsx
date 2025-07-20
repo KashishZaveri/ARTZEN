@@ -81,7 +81,7 @@ const Signin = () => {
 
         <Input
           placeholder="Password"
-          type={showPassword ? "text" : "password"} // ✅ Toggle visibility
+          type={showPassword ? "text" : "password"} // Toggle visibility
           minLength={8}
           value={password}
           onChange={(e) => setPassword(e.target.value)}

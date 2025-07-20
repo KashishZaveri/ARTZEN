@@ -4,12 +4,12 @@ import react from "@vitejs/plugin-react";
 export default defineConfig({
   plugins: [react()],
   preview: {
-    allowedHosts: ['artzen.onrender.com'],
+    allowedHosts: ["ARTZEN.onrender.com"],
   },
   server: {
     proxy: {
       "/api": {
-        target: "http://localhost:5000",
+        target: "http://localhost:5000/",
         changeOrigin: true,
       },
     },

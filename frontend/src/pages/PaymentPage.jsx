@@ -84,8 +84,6 @@ const PaymentPage = () => {
                     setNewOrder({ ...newOrder, [field]: e.target.value })
                   }
                   border="1px solid black"
-                  isRequired // ✅ Native validation
-                  required // ✅ HTML validation
                 />
               ))}
 

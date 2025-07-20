@@ -1,11 +1,8 @@
 import mongoose from "mongoose";
 import Product from "../models/productModel.js";
 
-/**
- * @desc    Get all products
- * @route   GET /api/products
- * @access  Public or Private (based on your frontend usage)
- */
+// Get all products
+
 export const getProducts = async (req, res) => {
   try {
     const products = await Product.find({});
@@ -16,11 +13,7 @@ export const getProducts = async (req, res) => {
   }
 };
 
-/**
- * @desc    Create a new product
- * @route   POST /api/products
- * @access  Private
- */
+// Create a new product
 export const createProduct = async (req, res) => {
   const { name, description, price, image } = req.body;
 
@@ -48,11 +41,7 @@ export const createProduct = async (req, res) => {
   }
 };
 
-/**
- * @desc    Delete a product by ID
- * @route   DELETE /api/products/:id
- * @access  Private (Owner only)
- */
+// delete
 export const deleteProduct = async (req, res) => {
   const productId = req.params.id;
 
@@ -73,12 +62,10 @@ export const deleteProduct = async (req, res) => {
 
     // Ownership check
     if (product.user.toString() !== req.user.id) {
-      return res
-        .status(403)
-        .json({
-          success: false,
-          message: "Not authorized to delete this product",
-        });
+      return res.status(403).json({
+        success: false,
+        message: "Not authorized to delete this product",
+      });
     }
 
     await product.deleteOne();

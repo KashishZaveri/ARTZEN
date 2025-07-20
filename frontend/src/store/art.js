@@ -7,7 +7,7 @@ const useArtStore = create((set) => ({
   updating: false,
   error: null,
 
-  // 📥 Fetch all artworks
+  // Fetch all artworks
   fetchMyArts: async () => {
     set({ loading: true, error: null });
     try {
@@ -31,7 +31,7 @@ const useArtStore = create((set) => ({
     }
   },
 
-  // 🗑️ Delete an artwork
+  // Delete an artwork
   deleteArt: async (id) => {
     try {
       const token = localStorage.getItem("token");
@@ -53,7 +53,7 @@ const useArtStore = create((set) => ({
     }
   },
 
-  // 🛠️ Update an artwork
+  // Update an artwork
   updateArt: async (id, updatedArt) => {
     set({ updating: true });
     try {
@@ -85,7 +85,7 @@ const useArtStore = create((set) => ({
     }
   },
 
-  // ✏️ Fetch a specific artwork for editing
+  // Fetch a specific artwork for editing
   editArt: async (id) => {
     set({ editingArt: null }); // reset previous state
     try {
@@ -106,7 +106,7 @@ const useArtStore = create((set) => ({
     }
   },
 
-  // 🧼 Optional: Reset edit mode manually
+  // Optional: Reset edit mode manually
   clearEditingArt: () => set({ editingArt: null }),
 
   updateField: (field, value) =>

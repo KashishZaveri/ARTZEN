@@ -29,8 +29,6 @@ app.use("/api/products", artRoutes);
 app.use("/api/payment", paymentRoutes);
 app.use("/api/orders", orderRoutes); // Protect the order routes
 
-
-
 app.listen(PORT, () => {
   connectDB();
   console.log("Server started at http://localhost:" + PORT);

@@ -1,7 +1,7 @@
 // src/utils/razorpayCheckout.js
-import { createOrder, sendBillEmail } from "./payment.js"; // ✅ Import payment API functions
+import { createOrder, sendBillEmail } from "./payment.js";
 import useAuthStore from "./useAuth.js";
-import { useOrderStore } from "./order.js"; // ✅ Zustand store for orders
+import { useOrderStore } from "./order.js";
 
 export async function handlePayment(amount, selectedProduct, billingForm) {
   try {
@@ -13,7 +13,7 @@ export async function handlePayment(amount, selectedProduct, billingForm) {
     const customerEmail =
       billingForm?.email || user?.email || "guest@example.com";
     const productName = selectedProduct?.name || "Artzen Product";
-    const productImage = selectedProduct?.image || ""; // ✅ Use selected product image
+    const productImage = selectedProduct?.image || ""; //  Use selected product image
 
     const billingDetails = {
       address: billingForm?.address || "",
@@ -33,22 +33,22 @@ export async function handlePayment(amount, selectedProduct, billingForm) {
       description: `Purchase - ${productName}`,
       handler: async (response) => {
         try {
-          // ✉️ Send billing info and receive saved order
+          //  Send billing info and receive saved order
           const savedOrder = await sendBillEmail({
             userId: user?.id,
             paymentId: response.razorpay_payment_id,
             gatewayOrderId: order.id,
             productName,
             amount: order.amount / 100,
-            image: selectedProduct?.image, // ✅ pass image here
+            image: selectedProduct?.image, // pass image here
             customerName,
             customerEmail,
             ...billingDetails,
           });
 
-          window.location.href = "/thank-you"; // ✅ UX flow complete
+          window.location.href = "/thank-you"; // UX flow complete
         } catch (error) {
-          console.error("❌ Email or Order Sync Error:", error.message);
+          console.error(" Email or Order Sync Error:", error.message);
           alert("Payment succeeded but confirmation failed.");
         }
       },
@@ -56,13 +56,13 @@ export async function handlePayment(amount, selectedProduct, billingForm) {
     };
 
     if (!window.Razorpay) {
-      alert("⚠️ Razorpay SDK not loaded. Check <script> tag in index.html.");
+      alert("Razorpay SDK not loaded. Check <script> tag in index.html.");
       return;
     }
 
     new window.Razorpay(options).open(); // Step 6: Launch Razorpay
   } catch (error) {
-    console.error("🛑 Checkout initiation failed:", error.message);
+    console.error("Checkout initiation failed:", error.message);
     alert("Unable to initiate payment. Please try again.");
   }
 }

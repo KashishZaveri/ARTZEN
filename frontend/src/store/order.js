@@ -10,7 +10,7 @@ export const useOrderStore = create((set) => ({
       const data = await res.json();
       set({ orders: data });
     } catch (error) {
-      console.error("❌ Order fetch failed:", error.message);
+      console.error("Order fetch failed:", error.message);
     }
   },
 }));

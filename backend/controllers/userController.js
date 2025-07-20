@@ -2,14 +2,14 @@ import User from "../models/userModel.js";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 
-// ✅ Utility: Token generator
+// Utility: Token generator
 const generateToken = (userId) => {
   return jwt.sign({ id: userId }, process.env.JWT_SECRET, {
     expiresIn: "7d",
   });
 };
 
-// 🔐 Signup Handler
+// Signup Handler
 export const signupUser = async (req, res) => {
   const { name, email, password } = req.body;
 
@@ -70,7 +70,7 @@ export const signupUser = async (req, res) => {
   }
 };
 
-// 🔑 Signin Handler
+// Signin Handler
 export const signinUser = async (req, res) => {
   const { email, password } = req.body;
 

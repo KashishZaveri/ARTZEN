@@ -104,7 +104,7 @@ const EditPage = () => {
         </Box>
       </VStack>
 
-      {/* ✅ Bootstrap Toast */}
+      {/* Bootstrap Toast */}
       <div
         className="toast-container position-fixed bottom-0 end-0 p-3"
         style={{ zIndex: 9999 }}

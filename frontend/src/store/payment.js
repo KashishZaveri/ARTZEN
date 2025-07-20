@@ -33,9 +33,9 @@ export async function sendBillEmail(details) {
     if (!response.ok) throw new Error("Failed to send confirmation email");
 
     const result = await response.json();
-    console.log("✅ Email + Order saved:", result);
+    console.log("Email + Order saved:", result);
 
-    return result.data; // ✅ This is the fix
+    return result.data; // This is the fix
   } catch (error) {
     console.error("Send email error:", error);
     throw error;

@@ -5,7 +5,7 @@ import dotenv from "dotenv";
 
 dotenv.config();
 
-// 🔐 Razorpay instance setup
+//  Razorpay instance setup
 const razorpay = new Razorpay({
   key_id: process.env.RAZORPAY_KEY_ID,
   key_secret: process.env.RAZORPAY_KEY_SECRET,
@@ -26,10 +26,10 @@ export const createOrder = async (req, res) => {
       receipt: `artzen_receipt_${Date.now()}`,
     });
 
-    console.log("✅ Razorpay Order created:", order.id);
+    console.log(" Razorpay Order created:", order.id);
     res.json(order);
   } catch (err) {
-    console.error("🛑 Create order failed:", err.message);
+    console.error(" Create order failed:", err.message);
     res.status(500).json({ error: "Order creation failed" });
   }
 };
@@ -50,7 +50,7 @@ export const sendBillEmail = async (req, res) => {
     phone,
   } = req.body;
 
-  // ✅ Validate input
+  //  Validate input
   if (
     !paymentId ||
     !productName ||
@@ -62,9 +62,9 @@ export const sendBillEmail = async (req, res) => {
     return res.status(400).json({ error: "Missing required fields" });
   }
 
-  // ✅ Validate email credentials
+  //  Validate email credentials
   if (!process.env.EMAIL_USER || !process.env.EMAIL_PASS) {
-    console.error("🛑 Missing email credentials in .env");
+    console.error(" Missing email credentials in .env");
     return res.status(500).json({ error: "Email service not configured" });
   }
 
@@ -78,9 +78,9 @@ export const sendBillEmail = async (req, res) => {
 
   try {
     await transporter.verify();
-    console.log("✅ SMTP is ready");
+    console.log("SMTP is ready");
   } catch (error) {
-    console.error("❌ SMTP Error:", error.message);
+    console.error("SMTP Error:", error.message);
     return res.status(500).json({ error: "Email service not available" });
   }
 
@@ -102,9 +102,9 @@ export const sendBillEmail = async (req, res) => {
 
   try {
     await transporter.sendMail(mailOptions);
-    console.log(`📧 Email sent to ${customerEmail}`);
+    console.log(`Email sent to ${customerEmail}`);
 
-    // ✅ Save the order in MongoDB
+    //  Save the order in MongoDB
     const newOrder = new Order({
       userId,
       paymentId,
@@ -117,17 +117,17 @@ export const sendBillEmail = async (req, res) => {
         {
           name: productName,
           price: amount,
-          image: req.body.image, // ✅ add image field
+          image: req.body.image,
         },
       ],
       orderedAt: Date.now(),
     });
 
     const saved = await newOrder.save();
-    console.log("🗃️ Order saved:", saved._id);
+    console.log(" Order saved:", saved._id);
     res.status(200).json(saved);
   } catch (err) {
-    console.error("❌ Email or DB error:", err.message);
+    console.error(" Email or DB error:", err.message);
     res.status(500).json({ error: "Confirmation failed" });
   }
 };

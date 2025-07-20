@@ -9,10 +9,9 @@ const ThankYouPage = () => {
 
   return (
     <Box textAlign="center" mt={20}>
-      <Heading mb={4}>Thank You! 🎨</Heading>
+      <Heading mb={6}>Thank You! 🎨</Heading>
       <Text fontSize="lg">
-        Your payment has been successfully processed. We'll contact you shortly
-        with delivery details.
+      💐Your payment has been successfully processed. Your favourite art piece will arrive within 7 days!💐
       </Text>
     </Box>
   );

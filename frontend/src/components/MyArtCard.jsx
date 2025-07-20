@@ -42,10 +42,7 @@ const MyArtCard = ({ art, onDelete }) => {
       <Card.Footer>
         <HStack>
           <Link to={`/my-arts/edit/${art._id}`}>
-            <Button 
-            bgColor="black"
-             border="2px solid blue" 
-             borderRadius="lg">
+            <Button bgColor="black" border="2px solid blue" borderRadius="lg">
               Edit
             </Button>
           </Link>

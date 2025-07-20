@@ -15,7 +15,7 @@ const HomePage = () => {
     <Container mb={10}>
       <VStack>
         <Text fontSize={"2xl"} fontWeight={"bold"} pt={5} textAlign={"center"}>
-        ✨ Welcome ✨
+          ✨ Welcome ✨
         </Text>
 
         <SimpleGrid
