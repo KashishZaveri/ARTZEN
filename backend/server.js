@@ -23,14 +23,23 @@ const __dirname = path.resolve();
 
 
 
+
 // app.use(cors({ origin: '*' }));
-app.use(cors({ origin: "http://localhost:5173", credentials: true }));
+app.use(
+  cors({
+     origin: process.env.FRONTEND_URL, 
+     credentials: true,
+      methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+      allowdHeaders: ['Content-Type', 'Authorization'],
+    }));
 app.use(express.json()); // allows us to accept JSON data in the req.body
 app.use("/api/products", productRoutes);
 app.use("/api/users", userRoutes);
-app.use("/api/products", artRoutes);
+app.use("/api/arts", artRoutes);
 app.use("/api/payment", paymentRoutes);
 app.use("/api/orders", orderRoutes); // Protect the order routes
+
+
 
 app.listen(PORT, () => {
   connectDB();
