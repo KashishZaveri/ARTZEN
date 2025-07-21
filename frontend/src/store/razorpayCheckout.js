@@ -3,6 +3,7 @@ import { createOrder, sendBillEmail } from "./payment.js";
 import useAuthStore from "./useAuth.js";
 import { useOrderStore } from "./order.js";
 
+
 export async function handlePayment(amount, selectedProduct, billingForm) {
   try {
     const order = await createOrder(amount); // Step 1: Razorpay order
@@ -25,7 +26,7 @@ export async function handlePayment(amount, selectedProduct, billingForm) {
     };
 
     const options = {
-      key: import.meta.env.VITE_RAZORPAY_KEY_ID || "rzp_test_1FwyZ8EKE11jyt",
+      key: import.meta.env.VITE_RAZORPAY_KEY_ID,
       amount: order.amount,
       currency: order.currency,
       order_id: order.id,
