@@ -12,6 +12,5 @@ router.get("/", getProducts);
 
 router.post("/", protect, createProduct);
 
-router.delete("/:id", protect, deleteProduct);
 
 export default router;
