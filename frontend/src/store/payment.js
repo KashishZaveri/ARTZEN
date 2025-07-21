@@ -5,7 +5,7 @@ export async function createOrder(amount) {
   try {
     const { token } = useAuthStore.getState();
 
-    const response = await fetch(`/api/payment/create-order`, {
+    const response = await fetch("/api/payment/create-order", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

@@ -23,7 +23,7 @@ const __dirname = path.resolve();
 
 
 
-app.use(cors({ origin: '*' }));
+// app.use(cors({ origin: '*' }));
 app.use(cors({ origin: "http://localhost:5173", credentials: true }));
 app.use(express.json()); // allows us to accept JSON data in the req.body
 app.use("/api/products", productRoutes);

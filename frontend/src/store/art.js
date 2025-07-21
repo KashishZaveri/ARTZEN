@@ -12,7 +12,7 @@ const useArtStore = create((set) => ({
     set({ loading: true, error: null });
     try {
       const token = localStorage.getItem("token");
-      const res = await fetch(`/api/arts/my-arts`, {
+      const res = await fetch("/api/arts/my-arts", {
         method: "GET",
         headers: {
           Authorization: `Bearer ${token}`,
