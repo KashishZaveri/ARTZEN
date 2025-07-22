@@ -23,7 +23,7 @@ const useAuthStore = create((set) => ({
 
   signup: async (name, email, password) => {
     try {
-      const res = await fetch("/api/users/signup", {
+      const res = await fetch("https://artzen-backend.onrender.com/api/users/signup", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ name, email, password }),
@@ -45,7 +45,7 @@ const useAuthStore = create((set) => ({
 
   signin: async (email, password) => {
     try {
-      const res = await fetch("/api/users/signin", {
+      const res = await fetch("https://artzen-backend.onrender.com/api/users/signin", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, password }),

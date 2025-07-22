@@ -34,7 +34,7 @@ export const useProductStore = create((set, get) => ({
 
     const token = localStorage.getItem("token"); // or get it from an auth store
 
-    const res = await fetch("/api/products", {
+    const res = await fetch("https://artzen-backend.onrender.com/api/products", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -55,7 +55,7 @@ export const useProductStore = create((set, get) => ({
     try {
       set({ loading: true });
 
-      const res = await fetch("/api/products", {
+      const res = await fetch("https://artzen-backend.onrender.com/api/products", {
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${token}`, // Include the token here

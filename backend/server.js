@@ -39,7 +39,7 @@ app.use("/api/orders", orderRoutes); // Protect the order routes
 
 
 
-app.listen(PORT, () => {
+app.listen('https://artzen.onrender.com', () => {
   connectDB();
   console.log("Server started at http://localhost:" + PORT);
 });

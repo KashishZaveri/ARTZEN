@@ -12,5 +12,4 @@ router.get("/", getProducts);
 
 router.post("/", protect, createProduct);
 
-
 export default router;
