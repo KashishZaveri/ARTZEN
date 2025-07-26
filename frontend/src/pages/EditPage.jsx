@@ -44,7 +44,7 @@ const EditPage = () => {
       toast.show();
     }
 
-    window.location.href = "/my-arts";
+    window.location.href =`${baseURL}/my-arts`;
   };
 
   return (
