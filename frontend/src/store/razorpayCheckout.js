@@ -3,9 +3,9 @@ import { createOrder, sendBillEmail } from "./payment.js";
 import useAuthStore from "./useAuth.js";
 import { useOrderStore } from "./order.js";
 import { useNavigate } from "react-router-dom";
+const navigate = useNavigate();
 
 const baseURL = import.meta.env.VITE_BACKEND_URL;
-const navigate = useNavigate();
 
 export async function handlePayment(amount, selectedProduct, billingForm) {
   try {
