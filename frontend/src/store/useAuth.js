@@ -45,7 +45,7 @@ const useAuthStore = create((set) => ({
 
   signin: async (email, password) => {
     try {
-      const res = await fetch("https://artzen-backend.onrender.com/api/users/signin", {
+      const res = await fetch("/api/users/signin", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, password }),

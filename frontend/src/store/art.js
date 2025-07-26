@@ -89,7 +89,7 @@ const useArtStore = create((set) => ({
     set({ editingArt: null }); // reset previous state
     try {
       const token = localStorage.getItem("token");
-      const res = await fetch(`https://artzen-backend.onrender.com/api/arts/my-arts/${id}`, {
+      const res = await fetch(`/api/arts/my-arts/${id}`, {
         method: "GET",
         headers: { Authorization: `Bearer ${token}` },
       });

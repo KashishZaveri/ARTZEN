@@ -6,7 +6,7 @@ export const useOrderStore = create((set) => ({
 
   fetchOrders: async (userId) => {
     try {
-      const res = await fetch(`https://artzen-backend.onrender.com/api/orders/${userId}`);
+      const res = await fetch(`/api/orders/${userId}`);
       const data = await res.json();
       set({ orders: data });
     } catch (error) {
