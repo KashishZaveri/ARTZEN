@@ -5,11 +5,11 @@ import { useOrderStore } from "./order.js";
 import { useNavigate } from "react-router-dom";
 
 const baseURL = import.meta.env.VITE_BACKEND_URL;
+const navigate = useNavigate();
 
 export async function handlePayment(amount, selectedProduct, billingForm) {
   try {
     const order = await createOrder(amount); // Step 1: Razorpay order
-    const navigate = useNavigate();
 
     const { user } = useAuthStore.getState();
 
