@@ -1,6 +1,9 @@
 import { create } from "zustand";
 
-const baseURL = import.meta.env.VITE_BACKEND_URL;
+const baseURL =
+  import.meta.env.MODE === "development"
+    ? "/api"
+    : import.meta.env.VITE_BACKEND_URL;
 
 const useArtStore = create((set) => ({
   myArts: [],

@@ -1,7 +1,9 @@
 import { create } from "zustand";
 
-const baseURL = import.meta.env.VITE_BACKEND_URL;
-
+const baseURL =
+  import.meta.env.MODE === "development"
+    ? "/api"
+    : import.meta.env.VITE_BACKEND_URL;
 
 const useAuthStore = create((set) => ({
   user: JSON.parse(localStorage.getItem("user")) || null,

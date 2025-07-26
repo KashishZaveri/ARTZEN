@@ -1,8 +1,10 @@
 // src/api/payment.js
 import useAuthStore from "./useAuth.js";
 
-const baseURL = import.meta.env.VITE_BACKEND_URL;
-
+const baseURL =
+  import.meta.env.MODE === "development"
+    ? "/api"
+    : import.meta.env.VITE_BACKEND_URL;
 
 export async function createOrder(amount) {
   try {

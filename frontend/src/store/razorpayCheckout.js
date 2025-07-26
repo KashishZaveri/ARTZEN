@@ -3,7 +3,6 @@ import { createOrder, sendBillEmail } from "./payment.js";
 import useAuthStore from "./useAuth.js";
 import { useOrderStore } from "./order.js";
 
-
 export async function handlePayment(amount, selectedProduct, billingForm) {
   try {
     const order = await createOrder(amount); // Step 1: Razorpay order
