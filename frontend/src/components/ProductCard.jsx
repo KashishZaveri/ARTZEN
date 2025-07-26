@@ -1,5 +1,6 @@
 import React from "react";
-import { Box, Button, Card, Image, Text, AspectRatio } from "@chakra-ui/react";
+import { Card, Image, Text, Box, Button } from "@chakra-ui/react";
+
 import { Link, useLocation } from "react-router-dom";
 import { useProductStore } from "../store/product.js";
 import useAuthStore from "../store/useAuth.js"; // Assuming you have a Zustand store for authentication
@@ -19,10 +20,14 @@ const ProductCard = ({ product }) => {
       border={"0.3px solid black"}
       bgColor={"blue.100"}
     >
-      <Box maxW="400px" mx="auto">
-        <AspectRatio ratio={4 / 3}>
-          <Image src={product.image} alt={product.name} objectFit="contain" />
-        </AspectRatio>
+      <Box maxW="400px" maxH="300px" overflow="hidden">
+        <Image
+          src={product.image}
+          alt={product.name}
+          objectFit="cover"
+          width="100%"
+          height="auto"
+        />
       </Box>
 
       <Card.Body gap="2">

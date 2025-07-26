@@ -1,5 +1,5 @@
 import React from "react";
-import { Box, Button, Card, Image, Text, AspectRatio, HStack } from "@chakra-ui/react";
+import { Card, Image, Text, Button, Box, HStack } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
 
 const MyArtCard = ({ art, onDelete }) => {
@@ -16,10 +16,14 @@ const MyArtCard = ({ art, onDelete }) => {
       border="0.3px solid black"
       bgColor="blue.100"
     >
-      <Box maxW="400px" mx="auto">
-        <AspectRatio ratio={4 / 3}>
-          <Image src={art.image} alt={art.name} objectFit="contain" />
-        </AspectRatio>
+      <Box maxW="400px" maxH="300px" overflow="hidden">
+        <Image
+          src={art.image}
+          alt={art.name}
+          objectFit="cover"
+          width="100%"
+          height="auto"
+        />
       </Box>
 
       <Card.Body gap="2">
