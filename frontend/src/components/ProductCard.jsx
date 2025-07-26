@@ -20,12 +20,13 @@ const ProductCard = ({ product }) => {
       border={"0.3px solid black"}
       bgColor={"blue.100"}
     >
-      <AspectRatio ratio={4 / 3} w="full">
+      <AspectRatio w="full">
         <Image
           src={product.image}
           alt={product.name}
           h={"48"}
           objectFit={"cover"}
+          height="auto"
         />
       </AspectRatio>
       <Card.Body gap="2">

@@ -23,8 +23,9 @@ const MyArtCard = ({ art, onDelete }) => {
       border="0.3px solid black"
       bgColor="blue.100"
     >
-      <AspectRatio ratio={4 / 3} w="full">
+      <AspectRatio w="full">
         <Image
+          height="auto"
           src={art.image || "https://via.placeholder.com/300x200?text=No+Image"}
           alt={art.name || "Untitled"}
           objectFit="cover"
