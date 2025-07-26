@@ -1,5 +1,7 @@
 import { create } from "zustand";
 
+const baseURL = import.meta.env.VITE_BACKEND_URL;
+
 const useArtStore = create((set) => ({
   myArts: [],
   editingArt: null,
@@ -7,15 +9,12 @@ const useArtStore = create((set) => ({
   updating: false,
   error: null,
 
-  // Fetch all artworks
   fetchMyArts: async () => {
     set({ loading: true, error: null });
     try {
       const token = localStorage.getItem("token");
-      const res = await fetch("/api/arts/my-arts", {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
+      const res = await fetch(`${baseURL}/arts/my-arts`, {
+        headers: { Authorization: `Bearer ${token}` },
       });
 
       const data = await res.json();
@@ -30,11 +29,10 @@ const useArtStore = create((set) => ({
     }
   },
 
-  // Delete an artwork
   deleteArt: async (id) => {
     try {
       const token = localStorage.getItem("token");
-      const res = await fetch(`/api/arts/my-arts/${id}`, {
+      const res = await fetch(`${baseURL}/arts/my-arts/${id}`, {
         method: "DELETE",
         headers: { Authorization: `Bearer ${token}` },
       });
@@ -52,12 +50,11 @@ const useArtStore = create((set) => ({
     }
   },
 
-  // Update an artwork
   updateArt: async (id, updatedArt) => {
     set({ updating: true });
     try {
       const token = localStorage.getItem("token");
-      const res = await fetch(`/api/arts/my-arts/${id}`, {
+      const res = await fetch(`${baseURL}/arts/my-arts/${id}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
@@ -84,12 +81,11 @@ const useArtStore = create((set) => ({
     }
   },
 
-  // Fetch a specific artwork for editing
   editArt: async (id) => {
-    set({ editingArt: null }); // reset previous state
+    set({ editingArt: null });
     try {
       const token = localStorage.getItem("token");
-      const res = await fetch(`/api/arts/my-arts/${id}`, {
+      const res = await fetch(`${baseURL}/arts/my-arts/${id}`, {
         method: "GET",
         headers: { Authorization: `Bearer ${token}` },
       });
@@ -105,7 +101,6 @@ const useArtStore = create((set) => ({
     }
   },
 
-  // Optional: Reset edit mode manually
   clearEditingArt: () => set({ editingArt: null }),
 
   updateField: (field, value) =>
