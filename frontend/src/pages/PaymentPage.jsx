@@ -11,9 +11,11 @@ import { useLocation } from "react-router-dom";
 import { useProductStore } from "../store/product.js";
 import { handlePayment } from "../store/razorpayCheckout.js";
 import useAuthStore from "../store/useAuth.js";
+import { useNavigate } from "react-router-dom";
 
 const PaymentPage = () => {
   const location = useLocation();
+  const navigate = useNavigate();
   const selectedProduct = useProductStore((state) => state.selectedProduct);
 
   const [newOrder, setNewOrder] = useState({
@@ -42,7 +44,7 @@ const PaymentPage = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault(); // Prevent page reload
-    handlePayment(selectedProduct?.price, selectedProduct, newOrder);
+    handlePayment(selectedProduct?.price, selectedProduct, newOrder, navigate);
   };
 
   return (
