@@ -17,7 +17,7 @@ import orderRoutes from "./routes/orderRoutes.js";
 import { protect } from "./Middleware/protect.js"; // Uncomment if you need authentication middleware
 
 const app = express();
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.BACKEND_URL;
 
 const __dirname = path.resolve();
 
@@ -39,7 +39,7 @@ app.use("/api/orders", orderRoutes); // Protect the order routes
 
 
 
-app.listen('https://artzen.onrender.com', () => {
+app.listen("PORT", () => {
   connectDB();
-  console.log("Server started at http://localhost:" + PORT);
+  console.log("Server started at" + PORT);
 });

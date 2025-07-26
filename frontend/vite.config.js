@@ -9,6 +9,7 @@ export default defineConfig(({ mode }) => {
     server: {
       proxy: {
         "/api": {
+        
           target: "https://artzen-backend.onrender.com",
           changeOrigin: true,
           secure: false,

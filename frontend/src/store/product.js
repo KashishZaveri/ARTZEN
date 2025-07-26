@@ -60,6 +60,8 @@ export const useProductStore = create((set, get) => ({
           "Content-Type": "application/json",
           Authorization: `Bearer ${token}`, // Include the token here
         },
+        body: JSON.stringify(),
+
       });
 
       const data = await res.json();
