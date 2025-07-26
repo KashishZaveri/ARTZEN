@@ -1,9 +1,6 @@
 import { create } from "zustand";
 
-const baseURL =
-  import.meta.env.MODE === "development"
-    ? "/api"
-    : import.meta.env.VITE_BACKEND_URL;
+const baseURL = import.meta.env.VITE_BACKEND_URL;
 
 const useArtStore = create((set) => ({
   myArts: [],
@@ -16,7 +13,7 @@ const useArtStore = create((set) => ({
     set({ loading: true, error: null });
     try {
       const token = localStorage.getItem("token");
-      const res = await fetch(`${baseURL}/arts/my-arts`, {
+      const res = await fetch(`${baseURL}/api/arts/my-arts`, {
         headers: { Authorization: `Bearer ${token}` },
       });
 
@@ -35,7 +32,7 @@ const useArtStore = create((set) => ({
   deleteArt: async (id) => {
     try {
       const token = localStorage.getItem("token");
-      const res = await fetch(`${baseURL}/arts/my-arts/${id}`, {
+      const res = await fetch(`${baseURL}/api/arts/my-arts/${id}`, {
         method: "DELETE",
         headers: { Authorization: `Bearer ${token}` },
       });

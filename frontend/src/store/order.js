@@ -11,7 +11,7 @@ export const useOrderStore = create((set) => ({
 
   fetchOrders: async (userId) => {
     try {
-      const res = await fetch(`${baseURL}/orders/${userId}`);
+      const res = await fetch(`${baseURL}/api/orders/${userId}`);
       const data = await res.json();
 
       if (res.ok && Array.isArray(data)) {
