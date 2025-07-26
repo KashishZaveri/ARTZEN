@@ -1,9 +1,8 @@
 import { create } from "zustand";
 
-const baseURL =
-  import.meta.env.MODE === "development"
-    ? "/api"
-    : import.meta.env.VITE_BACKEND_URL;
+const baseURL = import.meta.env.MODE === "development"
+  ? "/api"
+  : import.meta.env.VITE_BACKEND_URL;
 
 export const useOrderStore = create((set) => ({
   orders: [],
@@ -11,16 +10,13 @@ export const useOrderStore = create((set) => ({
 
   fetchOrders: async (userId) => {
     try {
-      const res = await fetch(`${baseURL}/api/orders/${userId}`);
+      const res = await fetch(`${baseURL}/orders/${userId}`);
       const data = await res.json();
 
       if (res.ok && Array.isArray(data)) {
         set({ orders: data });
       } else {
-        console.error(
-          "Invalid response format or error:",
-          data.message || data
-        );
+        console.error("Invalid response format or error:", data.message || data);
       }
     } catch (error) {
       console.error("Order fetch failed:", error.message);

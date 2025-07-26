@@ -3,6 +3,9 @@ import { createOrder, sendBillEmail } from "./payment.js";
 import useAuthStore from "./useAuth.js";
 import { useOrderStore } from "./order.js";
 
+const baseURL = import.meta.env.VITE_BACKEND_URL;
+
+
 export async function handlePayment(amount, selectedProduct, billingForm) {
   try {
     const order = await createOrder(amount); // Step 1: Razorpay order
@@ -46,7 +49,7 @@ export async function handlePayment(amount, selectedProduct, billingForm) {
             ...billingDetails,
           });
 
-          window.location.href = "/thank-you"; // UX flow complete
+          window.location.href = `${baseURL}/thank-you`; // UX flow complete
         } catch (error) {
           console.error(" Email or Order Sync Error:", error.message);
           alert("Payment succeeded but confirmation failed.");
