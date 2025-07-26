@@ -1,12 +1,5 @@
 import React from "react";
-import {
-  Card,
-  Image,
-  Text,
-  Button,
-  AspectRatio,
-  HStack,
-} from "@chakra-ui/react";
+import { Card, Image, Text, Button, Box, HStack } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
 
 const MyArtCard = ({ art, onDelete }) => {
@@ -23,14 +16,15 @@ const MyArtCard = ({ art, onDelete }) => {
       border="0.3px solid black"
       bgColor="blue.100"
     >
-      <AspectRatio w="full">
+      <Box maxW="400px" maxH="300px" overflow="hidden">
         <Image
+          src={art.image}
+          alt={art.name}
+          objectFit="contain"
+          width="100%"
           height="auto"
-          src={art.image || "https://via.placeholder.com/300x200?text=No+Image"}
-          alt={art.name || "Untitled"}
-          objectFit="cover"
         />
-      </AspectRatio>
+      </Box>
 
       <Card.Body gap="2">
         <Card.Title>{art.name}</Card.Title>

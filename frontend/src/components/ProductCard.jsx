@@ -1,5 +1,5 @@
 import React from "react";
-import { Card, Image, Text, Button, AspectRatio } from "@chakra-ui/react";
+import { Card, Image, Text, Box, Button } from "@chakra-ui/react";
 
 import { Link, useLocation } from "react-router-dom";
 import { useProductStore } from "../store/product.js";
@@ -20,15 +20,16 @@ const ProductCard = ({ product }) => {
       border={"0.3px solid black"}
       bgColor={"blue.100"}
     >
-      <AspectRatio w="full">
+      <Box maxW="400px" maxH="300px" overflow="hidden">
         <Image
           src={product.image}
           alt={product.name}
-          h={"48"}
-          objectFit={"cover"}
+          objectFit="contain"
+          width="100%"
           height="auto"
         />
-      </AspectRatio>
+      </Box>
+
       <Card.Body gap="2">
         <Card.Title>{product.name}</Card.Title>
         <Card.Description>{product.description}</Card.Description>
