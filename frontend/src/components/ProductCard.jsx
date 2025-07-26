@@ -24,9 +24,9 @@ const ProductCard = ({ product }) => {
         <Image
           src={product.image}
           alt={product.name}
-          objectFit="cover"
+          objectFit="contain"
           width="100%"
-          height="auto"
+          height="100%"
         />
       </Box>
 

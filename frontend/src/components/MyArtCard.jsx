@@ -20,9 +20,9 @@ const MyArtCard = ({ art, onDelete }) => {
         <Image
           src={art.image}
           alt={art.name}
-          objectFit="cover"
+          objectFit="contain"
           width="100%"
-          height="auto"
+          height="100%"
         />
       </Box>
 
