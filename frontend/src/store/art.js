@@ -54,7 +54,7 @@ const useArtStore = create((set) => ({
     set({ updating: true });
     try {
       const token = localStorage.getItem("token");
-      const res = await fetch(`${baseURL}/arts/my-arts/${id}`, {
+      const res = await fetch(`${baseURL}/api/arts/my-arts/${id}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
@@ -85,7 +85,7 @@ const useArtStore = create((set) => ({
     set({ editingArt: null });
     try {
       const token = localStorage.getItem("token");
-      const res = await fetch(`${baseURL}/arts/my-arts/${id}`, {
+      const res = await fetch(`${baseURL}/api/arts/my-arts/${id}`, {
         method: "GET",
         headers: { Authorization: `Bearer ${token}` },
       });
