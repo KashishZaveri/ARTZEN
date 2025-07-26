@@ -21,15 +21,20 @@ const PORT = process.env.PORT || 5000;
 
 const __dirname = path.resolve();
 
+const allowedOrigins = ["http://localhost:5173", "https://artzen.onrender.com"];
 
-// app.use(cors({ origin: '*' }));
 app.use(
   cors({
-     origin: process.env.FRONTEND_URL, 
-     credentials: true,
-      methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-      allowdHeaders: ['Content-Type', 'Authorization'],
-    }));
+    origin: function (origin, callback) {
+      if (!origin || allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error("Not allowed by CORS"));
+      }
+    },
+    credentials: true,
+  })
+);
 app.use(express.json()); // allows us to accept JSON data in the req.body
 app.use("/api/products", productRoutes);
 app.use("/api/users", userRoutes);
@@ -37,9 +42,7 @@ app.use("/api/arts", artRoutes);
 app.use("/api/payment", paymentRoutes);
 app.use("/api/orders", orderRoutes); // Protect the order routes
 
-
-
-app.listen(PORT, '0.0.0.0', () => {
+app.listen(PORT, "0.0.0.0", () => {
   connectDB();
   console.log(`Server started at on port ${PORT}`);
 });

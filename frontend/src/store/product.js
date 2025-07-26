@@ -55,7 +55,7 @@ export const useProductStore = create((set, get) => ({
     try {
       set({ loading: true });
 
-      const res = await fetch(`${import.meta.env.VITE_FRONTEND_URL}/api/products`, {
+      const res = await fetch("/api/products", {
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,
