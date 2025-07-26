@@ -19,8 +19,7 @@ const HomePage = () => {
         </Text>
 
         <SimpleGrid
-          columns={{ base: 1, md: 2, lg: 3 }}
-          spacing={10}
+          templateColumns="repeat(auto-fill, minmax(250px, 1fr))"
           gap={10}
           w={"full"}
         >
