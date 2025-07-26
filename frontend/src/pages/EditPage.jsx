@@ -12,7 +12,7 @@ import useArtStore from "../store/art.js";
 import Toast from "bootstrap/js/dist/toast";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min.js";
-import { navigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const EditPage = () => {
   const toastRef = useRef(null);
