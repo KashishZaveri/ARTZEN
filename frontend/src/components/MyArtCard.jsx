@@ -16,7 +16,7 @@ const MyArtCard = ({ art, onDelete }) => {
       border="0.3px solid black"
       bgColor="blue.100"
     >
-      <Box maxW="full" mx="auto" maxH="full">
+      <Box maxW="400px" mx="auto">
         <AspectRatio ratio={4 / 3}>
           <Image src={art.image} alt={art.name} objectFit="contain" />
         </AspectRatio>
