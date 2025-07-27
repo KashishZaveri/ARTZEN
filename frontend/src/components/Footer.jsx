@@ -16,7 +16,7 @@ const Footer = () => {
           <Link href="https://github.com/KashishZaveri/ARTZEN" isExternal>
             <Icon as={FaGithub} boxSize={6} color="black" />
           </Link>
-          <Link href="https://linkedin.com/in/your-profile" isExternal>
+          <Link href="https://linkedin.com/in/kashishzaveri" isExternal>
             <Icon as={FaLinkedin} boxSize={6} color="black" />
           </Link>
           <Link href="#" isExternal>
