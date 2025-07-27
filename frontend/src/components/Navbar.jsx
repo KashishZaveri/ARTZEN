@@ -25,7 +25,7 @@ const Navbar = () => {
         alignItems="center"
         justifyContent="space-between"
         flexDir="row"
-        bgColor="blue.600"
+        bgColor="blue.500"
         flexShrink={0}
         fontSize={{ base: "md", md: "lg" }}
         color="black"

@@ -4,7 +4,7 @@ import { Box, VStack, HStack, Text, Icon, Link } from "@chakra-ui/react";
 
 const Footer = () => {
   return (
-    <Box bgColor="blue.600" color="black" mt={10} pt={7}>
+    <Box bgColor="blue.500" color="black" mt={10} pt={7}>
       <VStack>
         <HStack
           direction="row"
