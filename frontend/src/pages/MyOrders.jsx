@@ -37,7 +37,9 @@ const MyOrders = () => {
 
   return (
     <VStack spacing={6} p={6} align="stretch">
-      <Heading size="lg">🎨 My Orders</Heading>
+      <Heading size="lg" mb={4} textAlign="center">
+        ✨ My Orders ✨
+      </Heading>{" "}
       {orders.map((order) => (
         <Box key={order._id} p={5} rounded="md" shadow="md">
           <Stack direction="row" justify="space-between" wrap="wrap">

@@ -86,6 +86,7 @@ const PaymentPage = () => {
                     setNewOrder({ ...newOrder, [field]: e.target.value })
                   }
                   border="1px solid black"
+                  required
                 />
               ))}
 
