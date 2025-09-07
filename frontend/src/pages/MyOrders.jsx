@@ -22,7 +22,7 @@ const MyOrders = () => {
     } else {
       console.warn("User ID missing. Order fetch skipped.");
     }
-  }, [userId]);
+  }, []);
 
   if (!orders.length) {
     return (
@@ -37,25 +37,30 @@ const MyOrders = () => {
 
   return (
     <VStack spacing={6} p={6} align="stretch">
-      <Heading size="lg" mb={4} textAlign="center">
+      <Heading as="h2" size="2xl" textAlign="center" mb={8} fontWeight="bold">
         ✨ My Orders ✨
-      </Heading>{" "}
+      </Heading>
+
       {orders.map((order) => (
         <Box key={order._id} p={5} rounded="md" shadow="md">
           <Stack direction="row" justify="space-between" wrap="wrap">
             <Text>
-              <strong>🧾 Payment ID:</strong> {order.paymentId}
+              <strong>Payment ID:</strong> {order.paymentId}
             </Text>
             <Badge colorScheme="green">{order.paymentStatus}</Badge>
           </Stack>
           <Text mt={2}>
-            📅 Ordered At: {new Date(order.orderedAt).toLocaleString()}
+            <strong> Ordered At: </strong>{" "}
+            {new Date(order.orderedAt).toLocaleString()}
           </Text>
           <Text mt={2}>
-            📦 Address: {order.address.street}, {order.address.city},{" "}
-            {order.address.state}, {order.address.zip}
+            <strong> Address: </strong> {order.address.street},{" "}
+            {order.address.city}, {order.address.state}, {order.address.zip}
           </Text>
-          <Text mt={1}>📱 Phone: {order.address.phone}</Text>
+          <Text mt={1}>
+            {" "}
+            <strong>Phone: </strong> {order.address.phone}
+          </Text>
 
           <VStack spacing={4} mt={4}>
             {order.items.map((item, idx) => (

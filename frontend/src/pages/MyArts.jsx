@@ -24,9 +24,16 @@ const MyArts = () => {
 
   return (
     <Box p={6}>
-      <Heading size="lg" mb={4} textAlign="center">
-        ✨ My Artworks ✨
-      </Heading>
+      <Heading
+          as="h2"
+          size="2xl"
+          textAlign="center"
+          mb={8}
+          fontWeight="bold"
+        >
+          ✨ My Arts ✨
+        </Heading>
+
 
       {loading ? (
         <Spinner size="xl" />

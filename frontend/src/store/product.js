@@ -3,7 +3,6 @@ import useAuthStore from "./useAuth.js";
 
 const baseURL = import.meta.env.VITE_BACKEND_URL;
 
-
 export const useProductStore = create((set, get) => ({
   // State
   products: [],

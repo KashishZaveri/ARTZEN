@@ -71,19 +71,18 @@ const CreatePage = () => {
 
         <Box w="full" p={6} bgColor="blue.100" rounded="lg" shadow="md">
           {/* ✅ Form wrapper added here */}
-          <form onSubmit={handleProduct}>
+          <form onSubmit={handleProduct} encType="multipart/form-data">
             <VStack spacing={4}>
               <Input
                 border="1px solid black"
-                placeholder="Image URL"
+                placeholder="Upload Image"
                 name="image"
-                value={newProduct.image}
+                type="file"
                 onChange={(e) =>
-                  setNewProduct({ ...newProduct, image: e.target.value })
+                  setNewProduct({ ...newProduct, image: e.target.files[0] })
                 }
                 required
               />
-
               <Input
                 border="1px solid black"
                 placeholder="Art Name"
