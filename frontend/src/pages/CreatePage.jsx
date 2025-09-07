@@ -75,14 +75,15 @@ const CreatePage = () => {
             <VStack spacing={4}>
               <Input
                 border="1px solid black"
-                placeholder="Upload Image"
+                placeholder="Image URL"
                 name="image"
-                type="file"
+                value={newProduct.image}
                 onChange={(e) =>
-                  setNewProduct({ ...newProduct, image: e.target.files[0] })
+                  setNewProduct({ ...newProduct, image: e.target.value })
                 }
                 required
               />
+
               <Input
                 border="1px solid black"
                 placeholder="Art Name"

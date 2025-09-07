@@ -1,7 +1,9 @@
 import { create } from "zustand";
 
-const baseURL = import.meta.env.VITE_BACKEND_URL;
-
+const baseURL =
+  process.env.NODE_ENV === "development"
+    ? "http://localhost:5000"
+    : "https://artzen-backend.onrender.com";
 const useArtStore = create((set) => ({
   myArts: [],
   editingArt: null,
