@@ -1,8 +1,6 @@
 import { create } from "zustand";
 
-const baseURL = process.env.NODE_ENV === "production"
-? "https://artzen.onrender.com"
-: "http://localhost:5000";
+const baseURL = import.meta.env.VITE_BACKEND_URL;
 
 const useArtStore = create((set) => ({
   myArts: [],
