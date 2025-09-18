@@ -51,7 +51,7 @@ export const useProductStore = create((set, get) => ({
     return { success: true, message: "Product created successfully" };
   },
   // Fetch all products
-  fetchProducts: async (page = 1, limit = 5) => {
+  fetchProducts: async (page = 2, limit = 10) => {
     const token = localStorage.getItem("token");
     try {
       set({ loading: true });

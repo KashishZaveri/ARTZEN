@@ -9,7 +9,7 @@ const useArtStore = create((set) => ({
   updating: false,
   error: null,
 
-  fetchMyArts: async () => {
+  fetchMyArts: async (page = 2, limit = 10) => {
     const token = localStorage.getItem("token");
     if (!token) {
       console.warn("No token found");
@@ -19,7 +19,7 @@ const useArtStore = create((set) => ({
 
     set({ loading: true, error: null });
     try {
-      const res = await fetch(`${baseURL}/api/arts/my-arts`, {
+      const res = await fetch(`${baseURL}/api/arts/my-arts?page=${page}&limit=${limit}`, {
         method: "GET",
         headers: {
           Authorization: `Bearer ${token}`,

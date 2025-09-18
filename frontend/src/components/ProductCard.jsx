@@ -20,11 +20,10 @@ const ProductCard = ({ product }) => {
       border={"0.3px solid black"}
       bgColor={"blue.100"}
       m={4}
-      transition="all 0.3s ease-in-out"
-      _hover={{
-        transform: "scale(1.05)",
-        shadow: "xl",
-      }}
+      transition="transform 0.3s ease-in-out"
+      _hover={{ transform: "scale(1.05)" }}
+      _active={{ transform: "scale(1.03)" }}
+      _focus={{ transform: "scale(1.03)" }}
     >
       <Box maxW="400px" maxH="300px" overflow="hidden">
         <Image

@@ -15,6 +15,10 @@ const MyArtCard = ({ art, onDelete }) => {
       overflow="hidden"
       border="0.3px solid black"
       bgColor="blue.100"
+      transition="transform 0.3s ease-in-out"
+      _hover={{ transform: "scale(1.05)" }}
+      _active={{ transform: "scale(1.03)" }}
+      _focus={{ transform: "scale(1.03)" }}
     >
       <Box maxW="400px" maxH="300px" overflow="hidden">
         <Image

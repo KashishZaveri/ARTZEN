@@ -1,8 +1,6 @@
 import { create } from "zustand";
 
-
 const baseURL = import.meta.env.VITE_BACKEND_URL;
-
 
 const useAuthStore = create((set) => ({
   user: JSON.parse(localStorage.getItem("user")) || null,
@@ -10,8 +8,8 @@ const useAuthStore = create((set) => ({
   isAuthenticated: !!localStorage.getItem("token"),
 
   setUser: (userData) => {
-    set({ user: userData });
     localStorage.setItem("user", JSON.stringify(userData));
+    set({ user: userData });
   },
 
   setToken: (token) => {
@@ -27,11 +25,12 @@ const useAuthStore = create((set) => ({
 
   signup: async (name, email, password) => {
     try {
-      const res = await fetch(`${baseURL}/api/products/signup`, {
+      const res = await fetch(`${baseURL}/api/users/signup`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ name, email, password }),
       });
+
       const data = await res.json();
       if (!res.ok) throw new Error(data.message || "Signup failed");
 
@@ -49,13 +48,18 @@ const useAuthStore = create((set) => ({
 
   signin: async (email, password) => {
     try {
-      const res = await fetch(`${baseURL}/api/products/signin`, {
+      const res = await fetch(`${baseURL}/api/users/signin`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, password }),
       });
+
       const data = await res.json();
       if (!res.ok) throw new Error(data.message || "Signin failed");
+
+      if (!data.token || !data.user) {
+        throw new Error("Invalid response from server");
+      }
 
       localStorage.setItem("token", data.token);
       localStorage.setItem("user", JSON.stringify(data.user));
