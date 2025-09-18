@@ -19,8 +19,14 @@ const EditPage = () => {
   const navigate = useNavigate();
   const artId = location.pathname.split("/").pop();
 
-  const { editingArt, editArt, updateField, updateArt, fetchMyArts, updating } =
-    useArtStore();
+  const {
+    editingArt,
+    editArt,
+    updateField,
+    updateArt,
+    fetchMyArts,
+    updating,
+  } = useArtStore();
 
   useEffect(() => {
     if (artId) editArt(artId);
@@ -29,7 +35,7 @@ const EditPage = () => {
   if (!editingArt) return <Spinner size="xl" mt={10} />;
 
   const handleSubmit = async (e) => {
-    e.preventDefault(); // prevent page reload
+    e.preventDefault();
 
     const updatedArt = {
       image: editingArt.image,
@@ -50,16 +56,17 @@ const EditPage = () => {
   };
 
   return (
-    <Container maxW="container.sm" rounded="lg">
-      <VStack spacing={8}>
-        <Heading size="2xl" textAlign="center" pt={10}>
+    <Container maxW={["100%", "container.sm"]} px={[4, 6]} py={[6, 10]}>
+      <VStack spacing={[6, 8]}>
+        <Heading size={["lg", "2xl"]} textAlign="center">
           ✨ Edit Your Wonderful Art Product ✨
         </Heading>
 
-        <Box w="full" p={6} bgColor="blue.100" rounded="lg" shadow="md">
+        <Box w="full" p={[4, 6]} bgColor="blue.100" rounded="lg" shadow="md">
           <form onSubmit={handleSubmit}>
-            <VStack spacing={4}>
+            <VStack spacing={[3, 4]}>
               <Input
+                size={["sm", "md"]}
                 placeholder="Image URL"
                 border="1px solid black"
                 value={editingArt.image}
@@ -67,6 +74,7 @@ const EditPage = () => {
                 required
               />
               <Input
+                size={["sm", "md"]}
                 placeholder="Art Name"
                 border="1px solid black"
                 value={editingArt.name}
@@ -74,6 +82,7 @@ const EditPage = () => {
                 required
               />
               <Input
+                size={["sm", "md"]}
                 placeholder="Description"
                 border="1px solid black"
                 value={editingArt.description}
@@ -81,6 +90,7 @@ const EditPage = () => {
                 required
               />
               <Input
+                size={["sm", "md"]}
                 placeholder="Price"
                 type="number"
                 border="1px solid black"
@@ -93,6 +103,7 @@ const EditPage = () => {
               />
               <Button
                 type="submit"
+                size={["sm", "md"]}
                 mt={3}
                 border="2px solid blue"
                 isLoading={updating}
@@ -108,7 +119,7 @@ const EditPage = () => {
 
       {/* Bootstrap Toast */}
       <div
-        className="toast-container position-fixed bottom-0 end-0 p-3"
+        className="toast-container position-fixed top-0 end-0 p-3"
         style={{ zIndex: 9999 }}
       >
         <div

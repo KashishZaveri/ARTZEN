@@ -3,16 +3,23 @@ import { Box, Grid, Heading, Spinner, Text } from "@chakra-ui/react";
 import MyArtCard from "../components/MyArtCard.jsx";
 import useArtStore from "../store/art.js";
 import Toast from "bootstrap/js/dist/toast";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const MyArts = () => {
   const toastRef = useRef(null);
+  const navigate = useNavigate();
 
   const { myArts, fetchMyArts, deleteArt, loading, error } = useArtStore();
 
   useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (!token) {
+      console.warn("No token found, redirecting to login");
+      navigate("/login");
+      return;
+    }
     fetchMyArts();
-  }, []);
+  }, [fetchMyArts, navigate]);
 
   const handleDelete = async (id) => {
     await deleteArt(id);
@@ -24,16 +31,9 @@ const MyArts = () => {
 
   return (
     <Box p={6}>
-      <Heading
-          as="h2"
-          size="2xl"
-          textAlign="center"
-          mb={8}
-          fontWeight="bold"
-        >
-          ✨ My Arts ✨
-        </Heading>
-
+      <Heading as="h2" size="2xl" textAlign="center" mb={8} fontWeight="bold">
+        ✨ My Arts ✨
+      </Heading>
 
       {loading ? (
         <Spinner size="xl" />
@@ -50,11 +50,7 @@ const MyArts = () => {
           </Link>
         </Text>
       ) : (
-        <Grid
-          templateColumns="repeat(auto-fill, minmax(250px, 1fr))"
-          gap={6}
-          w="full"
-        >
+        <Grid templateColumns="repeat(auto-fill, minmax(250px, 1fr))" gap={6}>
           {myArts.map((art) => (
             <MyArtCard key={art._id} art={art} onDelete={handleDelete} />
           ))}
@@ -74,7 +70,7 @@ const MyArts = () => {
           aria-atomic="true"
         >
           <div className="d-flex">
-            <div className="toast-body">Product deleted successfully!</div>
+            <div className="toast-body">Artwork deleted successfully!</div>
             <button
               type="button"
               className="btn-close btn-close-white me-2 m-auto"

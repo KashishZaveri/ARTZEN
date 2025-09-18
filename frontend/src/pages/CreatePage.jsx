@@ -10,6 +10,8 @@ import {
 import { useProductStore } from "../store/product.js";
 import Toast from "bootstrap/js/dist/toast";
 import useAuthStore from "../store/useAuth.js";
+import "bootstrap/dist/css/bootstrap.min.css";
+import "bootstrap/dist/js/bootstrap.bundle.min.js";
 
 const CreatePage = () => {
   const toastRef = useRef(null);
@@ -32,7 +34,7 @@ const CreatePage = () => {
   }, [token, isAuthenticated]);
 
   const handleProduct = async (e) => {
-    e.preventDefault(); // prevents page reload
+    e.preventDefault();
 
     try {
       const payload = {
@@ -56,24 +58,22 @@ const CreatePage = () => {
   };
 
   return (
-    <Container maxW="container.sm">
-      <VStack spacing={8}>
+    <Container maxW={["100%", "container.sm"]} px={[4, 6]} py={[6, 10]}>
+      <VStack spacing={[6, 8]}>
         <Heading
           as="h1"
-          size="2xl"
+          size={["lg", "2xl"]}
           textAlign="center"
-          mb={8}
           fontWeight="bold"
-          pt={10}
         >
           ✨ Create New Product ✨
         </Heading>
 
-        <Box w="full" p={6} bgColor="blue.100" rounded="lg" shadow="md">
-          {/* ✅ Form wrapper added here */}
+        <Box w="full" p={[4, 6]} bgColor="blue.100" rounded="lg" shadow="md">
           <form onSubmit={handleProduct} encType="multipart/form-data">
-            <VStack spacing={4}>
+            <VStack spacing={[3, 4]}>
               <Input
+                size={["sm", "md"]}
                 border="1px solid black"
                 placeholder="Image URL"
                 name="image"
@@ -85,6 +85,7 @@ const CreatePage = () => {
               />
 
               <Input
+                size={["sm", "md"]}
                 border="1px solid black"
                 placeholder="Art Name"
                 name="name"
@@ -96,6 +97,7 @@ const CreatePage = () => {
               />
 
               <Input
+                size={["sm", "md"]}
                 border="1px solid black"
                 placeholder="Description"
                 name="description"
@@ -107,6 +109,7 @@ const CreatePage = () => {
               />
 
               <Input
+                size={["sm", "md"]}
                 border="1px solid black"
                 placeholder="Price"
                 name="price"
@@ -121,6 +124,7 @@ const CreatePage = () => {
 
               <Button
                 type="submit"
+                size={["sm", "md"]}
                 mt={5}
                 rounded="lg"
                 border="2px solid blue"
@@ -135,7 +139,7 @@ const CreatePage = () => {
 
       {/* Bootstrap Toast */}
       <div
-        className="toast-container position-fixed bottom-0 end-0 p-3"
+        className="toast-container position-fixed top-0 end-0 p-3"
         style={{ zIndex: 9999 }}
       >
         <div

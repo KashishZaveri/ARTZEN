@@ -51,23 +51,24 @@ export const useProductStore = create((set, get) => ({
     return { success: true, message: "Product created successfully" };
   },
   // Fetch all products
-  fetchProducts: async () => {
-    const token = localStorage.getItem("token"); // or get it from an auth store
-
+  fetchProducts: async (page = 1, limit = 5) => {
+    const token = localStorage.getItem("token");
     try {
       set({ loading: true });
-
-      const res = await fetch(`${baseURL}/api/products`, {
+  
+      const res = await fetch(`${baseURL}/api/products?page=${page}&limit=${limit}`, {
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,
         },
       });
-
+  
       const data = await res.json();
       if (!res.ok) throw new Error(data.message);
-
-      set({ products: data.data });
+  
+      set((state) => ({
+        products: page === 1 ? data.data : [...state.products, ...data.data],
+      }));
     } catch (err) {
       console.error("Fetch products failed:", err.message);
       set({ products: [] });

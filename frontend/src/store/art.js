@@ -1,6 +1,8 @@
 import { create } from "zustand";
 
-const baseURL = import.meta.env.VITE_BACKEND_URL;
+const baseURL = process.env.NODE_ENV === "production"
+? "https://artzen.onrender.com"
+: "http://localhost:5000";
 
 const useArtStore = create((set) => ({
   myArts: [],
@@ -10,18 +12,27 @@ const useArtStore = create((set) => ({
   error: null,
 
   fetchMyArts: async () => {
+    const token = localStorage.getItem("token");
+    if (!token) {
+      console.warn("No token found");
+      set({ error: "Authentication required", loading: false });
+      return;
+    }
+
     set({ loading: true, error: null });
     try {
-      const token = localStorage.getItem("token");
       const res = await fetch(`${baseURL}/api/arts/my-arts`, {
-        headers: { Authorization: `Bearer ${token}` },
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
       });
 
       const data = await res.json();
-      if (data.success) {
+      if (res.ok && data.success) {
         set({ myArts: data.data, loading: false });
       } else {
-        throw new Error(data.message);
+        throw new Error(data.message || "Failed to fetch artworks");
       }
     } catch (error) {
       console.error("Fetch error:", error.message);
@@ -30,8 +41,10 @@ const useArtStore = create((set) => ({
   },
 
   deleteArt: async (id) => {
+    const token = localStorage.getItem("token");
+    if (!token) return;
+
     try {
-      const token = localStorage.getItem("token");
       const res = await fetch(`${baseURL}/api/arts/my-arts/${id}`, {
         method: "DELETE",
         headers: { Authorization: `Bearer ${token}` },
@@ -51,9 +64,11 @@ const useArtStore = create((set) => ({
   },
 
   updateArt: async (id, updatedArt) => {
+    const token = localStorage.getItem("token");
+    if (!token) return;
+
     set({ updating: true });
     try {
-      const token = localStorage.getItem("token");
       const res = await fetch(`${baseURL}/api/arts/my-arts/${id}`, {
         method: "PUT",
         headers: {
@@ -64,7 +79,7 @@ const useArtStore = create((set) => ({
       });
 
       const data = await res.json();
-      if (data.success) {
+      if (res.ok && data.success) {
         set((state) => ({
           myArts: state.myArts.map((art) =>
             art._id === id ? { ...art, ...data.data } : art
@@ -82,16 +97,18 @@ const useArtStore = create((set) => ({
   },
 
   editArt: async (id) => {
+    const token = localStorage.getItem("token");
+    if (!token) return;
+
     set({ editingArt: null });
     try {
-      const token = localStorage.getItem("token");
       const res = await fetch(`${baseURL}/api/arts/my-arts/${id}`, {
         method: "GET",
         headers: { Authorization: `Bearer ${token}` },
       });
 
       const data = await res.json();
-      if (data.success && data.data) {
+      if (res.ok && data.success && data.data) {
         set({ editingArt: data.data });
       } else {
         console.error("Invalid artwork response:", data.message);

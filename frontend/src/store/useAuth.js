@@ -1,9 +1,8 @@
 import { create } from "zustand";
 
-const baseURL =
-  import.meta.env.MODE === "development"
-    ? "/api"
-    : import.meta.env.VITE_BACKEND_URL;
+
+const baseURL = import.meta.env.VITE_BACKEND_URL;
+
 
 const useAuthStore = create((set) => ({
   user: JSON.parse(localStorage.getItem("user")) || null,
@@ -28,7 +27,7 @@ const useAuthStore = create((set) => ({
 
   signup: async (name, email, password) => {
     try {
-      const res = await fetch(`${baseURL}/api/users/signup`, {
+      const res = await fetch(`${baseURL}/api/products/signup`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ name, email, password }),
@@ -50,7 +49,7 @@ const useAuthStore = create((set) => ({
 
   signin: async (email, password) => {
     try {
-      const res = await fetch(`${baseURL}/api/users/signin`, {
+      const res = await fetch(`${baseURL}/api/products/signin`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, password }),

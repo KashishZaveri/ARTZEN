@@ -19,6 +19,12 @@ const ProductCard = ({ product }) => {
       overflow="hidden"
       border={"0.3px solid black"}
       bgColor={"blue.100"}
+      m={4}
+      transition="all 0.3s ease-in-out"
+      _hover={{
+        transform: "scale(1.05)",
+        shadow: "xl",
+      }}
     >
       <Box maxW="400px" maxH="300px" overflow="hidden">
         <Image
@@ -27,6 +33,7 @@ const ProductCard = ({ product }) => {
           objectFit="contain"
           width="100%"
           height="100%"
+          borderBottom={"1px solid black"}
         />
       </Box>
 

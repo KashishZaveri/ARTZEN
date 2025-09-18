@@ -7,11 +7,10 @@ import {
   Input,
   VStack,
 } from "@chakra-ui/react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { useProductStore } from "../store/product.js";
 import { handlePayment } from "../store/razorpayCheckout.js";
 import useAuthStore from "../store/useAuth.js";
-import { useNavigate } from "react-router-dom";
 
 const PaymentPage = () => {
   const location = useLocation();
@@ -43,20 +42,33 @@ const PaymentPage = () => {
   }, [selectedProduct]);
 
   const handleSubmit = (e) => {
-    e.preventDefault(); // Prevent page reload
+    e.preventDefault();
     handlePayment(selectedProduct?.price, selectedProduct, newOrder, navigate);
   };
 
   return (
-    <Container maxW="container.sm">
-      <VStack spacing={8}>
-        <Heading as="h1" size="2xl" textAlign="center" my={4} fontWeight="bold">
+    <Container maxW={["100%", "container.sm"]} px={[4, 6]} py={[6, 10]}>
+      <VStack spacing={[6, 8]}>
+        <Heading
+          as="h1"
+          size={["lg", "2xl"]}
+          textAlign="center"
+          fontWeight="bold"
+        >
           ✨ Billing ✨
         </Heading>
 
-        <Box w="full" p={6} bgColor="blue.100" rounded="lg" shadow="md" mb={10}>
+        <Box
+          w="full"
+          p={[4, 6]}
+          bgColor="blue.100"
+          rounded="lg"
+          shadow="md"
+          transition="all 0.3s ease-in-out"
+          _hover={{ shadow: "lg" }}
+        >
           <form onSubmit={handleSubmit}>
-            <VStack spacing={4}>
+            <VStack spacing={[3, 4]}>
               <Input
                 name="product"
                 placeholder="Art Product Name"
@@ -65,6 +77,7 @@ const PaymentPage = () => {
                 bg="gray.100"
                 cursor="not-allowed"
                 border="1px solid black"
+                size={["sm", "md"]}
               />
 
               {[
@@ -87,6 +100,7 @@ const PaymentPage = () => {
                   }
                   border="1px solid black"
                   required
+                  size={["sm", "md"]}
                 />
               ))}
 
@@ -97,16 +111,18 @@ const PaymentPage = () => {
                 readOnly
                 bg="gray.100"
                 border="1px solid black"
+                size={["sm", "md"]}
               />
 
               <Button
                 type="submit"
                 mt={5}
-                w="auto"
+                size={["sm", "md"]}
                 rounded="lg"
                 border="2px solid blue"
                 colorScheme="blue"
                 isDisabled={!selectedProduct}
+              
               >
                 Pay ₹{selectedProduct?.price}
               </Button>
