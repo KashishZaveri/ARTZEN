@@ -9,7 +9,7 @@ const useArtStore = create((set) => ({
   updating: false,
   error: null,
 
-  fetchMyArts: async (page = 2, limit = 10) => {
+  fetchMyArts: async (page = 1, limit = 10) => {
     const token = localStorage.getItem("token");
     if (!token) {
       console.warn("No token found");

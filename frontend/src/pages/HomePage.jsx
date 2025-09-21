@@ -30,11 +30,6 @@ const HomePage = () => {
           ✨ Welcome ✨
         </Heading>
 
-        {products.length === 0 ? (
-          <Text fontSize={["md", "lg"]} color="gray.600" textAlign="center">
-            No products found. Be the first to create one!
-          </Text>
-        ) : (
           <SimpleGrid
             columns={[1, 2, 3]}
             spacing={[6, 8]}
@@ -45,7 +40,6 @@ const HomePage = () => {
               <ProductCard key={product._id} product={product} />
             ))}
           </SimpleGrid>
-        )}
       </VStack>
     </Container>
   );

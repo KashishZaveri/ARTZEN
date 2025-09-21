@@ -51,7 +51,7 @@ export const useProductStore = create((set, get) => ({
     return { success: true, message: "Product created successfully" };
   },
   // Fetch all products
-  fetchProducts: async (page = 2, limit = 10) => {
+  fetchProducts: async (page = 1, limit = 10) => {
     const token = localStorage.getItem("token");
     try {
       set({ loading: true });
@@ -71,7 +71,8 @@ export const useProductStore = create((set, get) => ({
       }));
     } catch (err) {
       console.error("Fetch products failed:", err.message);
-      set({ products: [] });
+      // Preserve existing products to avoid UI flash
+      set((state) => ({ products: state.products }));
     } finally {
       set({ loading: false });
     }
